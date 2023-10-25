@@ -59,7 +59,7 @@ public class TrainDispatchAppUi {
 
     public void start() {
             //this.trainRegister.fillRegisterWithDefaultTrainDepartures();
-            System.out.println("***** Train Register " + version + "*****");
+            System.out.println("***** Train Dispatch Register " + version + "*****");
             System.out.println();
             System.out.println("Welcome this application!");
 
@@ -115,7 +115,8 @@ public class TrainDispatchAppUi {
 
 
             // Create the train departure from the information above
-            TrainDeparture traindeparturetoAdd = new Traindeparture (LocalTime.parse(departureTime), line, trainNumber, destination, track);
+            TrainDeparture traindeparturetoAdd = new Traindeparture (LocalTime.parse(departureTime), line, trainNumber,
+                    destination, track);
             return traindeparturetoAdd;
         }
 

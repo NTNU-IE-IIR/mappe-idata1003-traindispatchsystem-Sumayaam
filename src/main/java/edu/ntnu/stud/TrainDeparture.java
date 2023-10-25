@@ -33,7 +33,7 @@ public class TrainDeparture {
             this.line = line;
             this.trainNumber = trainNumber;
             this.destination = destination;
-            this.delay = LocalTime.of(0, 0);
+            this.delay = delay;
             this.track = track;
         }
 
