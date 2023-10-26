@@ -14,8 +14,8 @@ public class TrainDeparture {
         private final String line;
         private final String trainNumber;
         private final String destination;
-        private final LocalTime delay;
-        private final int track;
+        private  LocalTime delay;
+        private int track;
 
         /** Creates a train departure Object with specified attributes.
          *
@@ -23,17 +23,16 @@ public class TrainDeparture {
          * @param line           The train line.(cannot be null or empty line).
          * @param trainNumber    The train number(uniqye for each day and must be positive).
          * @param destination    The train destination.
-         * @param delay          The delay of the train (hh.mm) (00.00, if no delay).
          * @param track          the track number of the train(empty line if no track is assigned).
          */
         public TrainDeparture(LocalTime departureTime, String line, String trainNumber,
-                              String destination, LocalTime delay, int track) {
+                              String destination, int track) {
 
             this.departureTime = departureTime;
             this.line = line;
             this.trainNumber = trainNumber;
             this.destination = destination;
-            this.delay = delay;
+            this.delay = LocalTime.of(0,0);  // The delay of the train (hh.mm) (00.00, if no delay).
             this.track = track;
         }
 
@@ -92,14 +91,27 @@ public class TrainDeparture {
          * @return track of the train.
          */
 
-        public int  getTrack() {
+        public int getTrack() {
             return track;
         }
 
+    /**
+     * Set methods.
+     */
+    public void setDelay (LocalTime delay) {
+        this.delay = delay;
+        }
+        /**
+         * set methods.
+         *
+         * @param track the track number
+         */
 
+        public void setTrack(int track) {
+            this.track = track;
+        }
 
+}
 
-
-    }
 
 
