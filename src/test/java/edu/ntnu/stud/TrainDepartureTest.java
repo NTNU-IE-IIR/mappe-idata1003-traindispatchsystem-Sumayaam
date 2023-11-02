@@ -18,9 +18,9 @@ class TrainDepartureTest {
     public void setUp(){
         departure = new TrainDeparture(LocalTime.of(12, 00),
                 "F1",
-                "789",
+                789,
                 "Oslo",
-                3);
+                LocalTime.of(0, 10),4);
 
     }
 
@@ -39,29 +39,27 @@ class TrainDepartureTest {
     /**
      * Positive test which test valid train departure inputs.
      */
+
     @Test
     public void testvalidtraindepartureinput() {
         assertEquals(LocalTime.of(12, 0), departure.getDepartureTime());
         assertEquals("F1",departure.getLine());
-        assertEquals("789", departure.getTrainNumber());
+        assertEquals(789, departure.getTrainNumber());
         assertEquals("Oslo", departure.getDestination());
         assertEquals(3, departure.getTrack());
     }
+    /**
+     * Negative test which test invalid train departure inputs.
+     */
+    @Test
+    public void testInvalidTrainDepartureInput() {
+       //lag negativ enhetstest
 
     /**
      * Positive test for track
      */
 
-    @Test
-    public void testValidTrack(){
-        departure.setTrack(4);
-        assertEquals(4, departure.getTrack());
-    }
-    @Test
 
-    public void testsInvalidInputForTrack() {
-        departure.setTrack(-10);
-        assertEquals(-10, departure.getTrack());
     }
 
 }

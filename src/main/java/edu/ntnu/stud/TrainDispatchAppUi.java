@@ -99,7 +99,7 @@ public void init() {
         System.out.println("Please enter line of train: ");
         String line= inputScanner.nextLine();
         System.out.println("Please enter train number: ");
-        String trainNumber = inputScanner.nextLine();
+        int trainNumber = inputScanner.nextInt();
         System.out.println("Please enter destination: ");
         String destination = inputScanner.nextLine();
         System.out.println("Please enter delay in hh:mm: ");
@@ -108,7 +108,7 @@ public void init() {
         int track = inputScanner.nextInt();
 
         // Create the student from the collected information
-        TrainDeparture trainDepartureToAdd = new TrainDeparture(LocalTime.parse(departureTime), line, trainNumber, destination,
+        TrainDeparture trainDepartureToAdd = new TrainDeparture(LocalTime.parse(departureTime), line, trainNumber, destination, LocalTime.parse(delay),
                 track);
         return trainDepartureToAdd;
     }

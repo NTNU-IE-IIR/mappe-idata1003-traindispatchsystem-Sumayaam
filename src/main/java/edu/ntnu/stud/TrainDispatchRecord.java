@@ -2,10 +2,12 @@ package edu.ntnu.stud;
 
 
 /**
- * Representes a record of traindepartures
+ * Represents a record of train departures.
+ * <p> The following functionality is implemented
  *
  */
 public class TrainDispatchRecord {
+    private HashMap<int, TrainDeparture> traindepartures;
 
 
 }
