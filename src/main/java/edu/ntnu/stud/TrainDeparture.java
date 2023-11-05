@@ -102,6 +102,7 @@ public class TrainDeparture {
    */
 
   private void setDepartureTime(LocalTime departureTime) {
+
     this.departureTime = departureTime;
   }
 
@@ -117,8 +118,9 @@ public class TrainDeparture {
 
   /**
    * Sets the train number of the train
+   * If the train number is negative, the train number is set to 0.
    *
-   * @param trainNumber to be set.
+   * @param trainNumber to be set. Must be a positive number.
    */
   private void setTrainNumber(int trainNumber) {
     if(trainNumber >0)
@@ -127,10 +129,14 @@ public class TrainDeparture {
 
   /**
    *Sets the destination of the train.
+   * If the destination is null or empty, the destination is set to "INVALID DESTINATION"
    *
-   * @param destination to be set
+   * @param destination to be set. Must contain a text for final destination
    */
   private void setDestination(String destination) {
+    if ((destination == null) || destination.isBlank()) {
+      this.destination = "INVALID DESTINATION";
+    } else
     this.destination = destination;
   }
 
@@ -141,11 +147,16 @@ public class TrainDeparture {
  * @param delay the amount of delay.
  */
   public void setDelay(LocalTime delay) {
-    this.delay = delay;
-  }
+    if (delay == null) {
+      this.delay = LocalTime.of(0, 0);
+    } else {
+      this.delay = delay;
+    }
+    }
 
   /**
   * sets the track of the train.
+   * If the track is negative, the track is set to 0.
   *
   * @param track the track number.
   */

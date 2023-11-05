@@ -42,7 +42,6 @@ public void init() {
         System.out.println("Track of train:" + trainDeparture.getTrack());
 
     }
-
     /**
      * Presents all train departures in the register to the console.
      */
