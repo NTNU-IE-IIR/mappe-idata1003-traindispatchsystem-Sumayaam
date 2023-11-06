@@ -113,7 +113,11 @@ public class TrainDeparture {
    *
    */
   private void setLine(String line) {
-    this.line = line;
+    if ((line == null) || line.isBlank()) {
+      this.line = "INVALID LINE";
+    } else {
+      this.line = line;
+    }
   }
 
   /**
@@ -136,10 +140,10 @@ public class TrainDeparture {
   private void setDestination(String destination) {
     if ((destination == null) || destination.isBlank()) {
       this.destination = "INVALID DESTINATION";
-    } else
-    this.destination = destination;
+    } else {
+      this.destination = destination;
+    }
   }
-
 
   /**
  * Sets the delay of the train.

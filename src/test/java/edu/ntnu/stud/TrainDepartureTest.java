@@ -2,6 +2,8 @@ package edu.ntnu.stud;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.accessibility.AccessibleStateSet;
 import java.time.LocalTime;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -48,6 +50,7 @@ class TrainDepartureTest {
         assertEquals("F1",departure.getLine());
         assertEquals(789, departure.getTrainNumber());
         assertEquals("Oslo", departure.getDestination());
+        assertEquals(LocalTime.of(0, 10), departure.getDelay());
         assertEquals(3, departure.getTrack());
     }
     /**
@@ -58,15 +61,16 @@ class TrainDepartureTest {
     @Test
     public void testInvalidTrainDepartureInput() {
         departure = new TrainDeparture(LocalTime.of(12, 00),
-                "F1",
+                "",
                 -2,
                 "",
                 null,-1);
 
         assertEquals(LocalTime.of(12, 0), departure.getDepartureTime());
-        assertEquals("F1",departure.getLine());
+        assertEquals("INVALID LINE",departure.getLine());
         assertEquals(0, departure.getTrainNumber());
         assertEquals("INVALID DESTINATION", departure.getDestination());
+        assertEquals(LocalTime.of(0,0), departure.getDelay());
         assertEquals(0, departure.getTrack());
 
     }

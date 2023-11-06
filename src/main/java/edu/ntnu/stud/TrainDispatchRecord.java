@@ -42,13 +42,16 @@ public class TrainDispatchRecord {
      */
   public boolean addTrainDeparture(TrainDeparture trainDeparture) {
     // Guard condition to check if the train departure is null, or if the train number already exists
-    if (trainDeparture == null || this.traindepartures.containsKey(trainDeparture.getTrainNumber())) {
+    if (trainDeparture == null || this.trainDepartures.containsKey(trainDeparture.getTrainNumber())) {
       return false;
     }
     this.trainDepartures.put(trainDeparture.getTrainNumber(), trainDeparture);
     return true;
 }
 
+public int getNumberOfTrainDepartures() {
+  return this.trainDepartures.size();
+}
   /**
    * Returns the train departure with a given train number.
    *
@@ -60,6 +63,7 @@ public class TrainDispatchRecord {
   public TrainDeparture findTrainDepartureByTrainNumber(int trainNumber) {
     return this.trainDepartures.get(trainNumber);
     }
+
 
     /**
      * Searches the record for a train departure with the given destination.
@@ -83,8 +87,7 @@ public class TrainDispatchRecord {
         foundTrainDeparture = trainDeparture;
           }
 
- }
-    return foundTrainDeparture;
+ } return foundTrainDeparture;
   }
 
   /**
@@ -116,7 +119,7 @@ public class TrainDispatchRecord {
    *
    * @return a sorted list of train departures by departure time.
    */
-  public List<TrainDeparture> getSortedTrainDeparture () {
+  public List<TrainDeparture> getSortedTrainDeparture() {
     List<TrainDeparture> sortedTrainDepartureList = new ArrayList<>(this.trainDepartures.values());
 
     sortedTrainDepartureList.sort((trainDeparture1, trainDeparture2) ->
