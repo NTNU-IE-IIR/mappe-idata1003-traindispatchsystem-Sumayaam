@@ -78,7 +78,7 @@ public void testFindingTrainDepartureByUsingTrainNumber() {
 }
 
 /**
- * Tests that a train departure is not found by using an invalid train number.
+ * Tests that a train departure is found by using an invalid train number.
  *
  */
 @Test
@@ -87,15 +87,46 @@ public void testFindingTrainDepartureByUsingInvalidTrainNumber() {
     assertNull(trainDeparture);
 }
 
+@Test
 /**
- * Test that a train departure is not found by using an invalid train number.
- * <p>
+ * Tests that a trainDeparture with same train numbers are not added to the record.
+ *
  * Negative test.
  */
-@Test
-public void testFindingTrainDepartureByUsingInvalidTrainNumberShouldReturnNull() {
-    TrainDeparture trainDeparture = this.trainDispatchRecord.findTrainDepartureByTrainNumber(0);
-    assertNull(trainDeparture);
-}
-}
 
+public void testAddingTrainDepartureWithSameTrainNumber() {
+    TrainDeparture trainDeparture1 = new TrainDeparture(LocalTime.of(16, 0),
+            "L3",
+            456,
+            "Berlin",
+            LocalTime.of(0, 40), 7);
+    TrainDeparture trainDeparture2 = new TrainDeparture(LocalTime.of(16, 0),
+            "L3",
+            456,
+            "Trondheim",
+            LocalTime.of(0, 20), 7);
+
+    boolean firstTrainDepartureAdded = this.trainDispatchRecord.addTrainDeparture(trainDeparture1);
+    boolean secondTrainDepartureAdded = this.trainDispatchRecord.addTrainDeparture(trainDeparture2);
+    assertTrue(firstTrainDepartureAdded);
+    assertFalse(secondTrainDepartureAdded);
+}
+/**
+ * Test that a train departure is found by using a valid destination.
+ *
+ * positive test
+ */
+@Test
+    public void testFindingTrainDepartureByUsingDestination() {
+    TrainDeparture trainDeparture = this.trainDispatchRecord.findTrainDepartureByDestination("Oslo");
+    }
+
+/**
+ *
+ *
+ *
+  */
+
+
+
+}

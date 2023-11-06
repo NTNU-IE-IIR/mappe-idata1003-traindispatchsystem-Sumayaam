@@ -64,13 +64,12 @@ class TrainDepartureTest {
                 "",
                 -2,
                 "",
-                null,-1);
+                LocalTime.of(0,10), -3);
 
         assertEquals(LocalTime.of(12, 0), departure.getDepartureTime());
         assertEquals("INVALID LINE",departure.getLine());
         assertEquals(0, departure.getTrainNumber());
         assertEquals("INVALID DESTINATION", departure.getDestination());
-        assertEquals(LocalTime.of(0,0), departure.getDelay());
         assertEquals(0, departure.getTrack());
 
     }

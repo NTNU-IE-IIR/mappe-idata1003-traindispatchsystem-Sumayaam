@@ -127,8 +127,9 @@ public class TrainDeparture {
    * @param trainNumber to be set. Must be a positive number.
    */
   private void setTrainNumber(int trainNumber) {
-    if (trainNumber >0)
+    if (trainNumber > 0) {
       this.trainNumber = trainNumber;
+  }
   }
 
   /**
@@ -151,12 +152,9 @@ public class TrainDeparture {
  * @param delay the amount of delay.
  */
   public void setDelay(LocalTime delay) {
-    if (delay == null) {
-      this.delay = LocalTime.of(0, 0);
-    } else {
       this.delay = delay;
     }
-    }
+
 
   /**
   * sets the track of the train.
@@ -168,7 +166,9 @@ public class TrainDeparture {
   public void setTrack(int track) {
     if (track > 0) {
       this.track = track;
+      // hvis spor enda ikke er tildelt så er track -1
     }
+
 
   }
 

@@ -1,7 +1,13 @@
 package edu.ntnu.stud;
 
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+
 
 /**
  * Represents a record of train departures.
@@ -33,7 +39,7 @@ public class TrainDispatchRecord {
    * This method adds a {@code TrainDeparture} to the record.
    * if a train departure with the same train number already exists in the record,
    * the method will return {@code false} and will not add the train number.
-   * if the trian number does not exist in the record, the method will then return {@code true}.
+   * if the train number does not exist in the record, the method will then return {@code true}.
    * </p>
    *
    * @param trainDeparture the train departure to be added.
@@ -65,7 +71,7 @@ public int getNumberOfTrainDepartures() {
     }
 
 
-    /**
+  /**
      * Searches the record for a train departure with the given destination.
      * If no train departure matches the destination, null is returned.
      *
@@ -87,7 +93,8 @@ public int getNumberOfTrainDepartures() {
         foundTrainDeparture = trainDeparture;
           }
 
- } return foundTrainDeparture;
+ }
+    return foundTrainDeparture;
   }
 
   /**
