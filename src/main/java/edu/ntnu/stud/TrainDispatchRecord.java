@@ -17,14 +17,14 @@ import java.util.*;
  *
  */
 public class TrainDispatchRecord {
-  private HashMap<Integer, TrainDeparture> traindepartures;
+  private HashMap<Integer, TrainDeparture> trainDepartures;
 
 
   /**
    * Creates an instance of TrainDispatchRecord.
    */
   public TrainDispatchRecord() {
-    this.traindepartures = new HashMap<>();
+    this.trainDepartures = new HashMap<>();
     }
 
   /**
@@ -41,13 +41,12 @@ public class TrainDispatchRecord {
    * @return {@code false} if the train departure was not added.
      */
   public boolean addTrainDeparture(TrainDeparture trainDeparture) {
-    int trainNumber = trainDeparture.getTrainNumber();
-    if (this.traindepartures.containsKey(trainNumber)) { //if the train number already exists
-      return false; // if yes return false
-    } else {
-      this.traindepartures.put(trainNumber, trainDeparture);
-      return true; //if no return true, and add the train departure
-        }
+    // Guard condition to check if the train departure is null, or if the train number already exists
+    if (trainDeparture == null || this.traindepartures.containsKey(trainDeparture.getTrainNumber())) {
+      return false;
+    }
+    this.trainDepartures.put(trainDeparture.getTrainNumber(), trainDeparture);
+    return true;
 }
 
   /**
@@ -59,7 +58,7 @@ public class TrainDispatchRecord {
    */
 
   public TrainDeparture findTrainDepartureByTrainNumber(int trainNumber) {
-    return this.traindepartures.get(trainNumber);
+    return this.trainDepartures.get(trainNumber);
     }
 
     /**
@@ -76,7 +75,7 @@ public class TrainDispatchRecord {
   public TrainDeparture findTrainDepartureByDestination(String destination) {
     TrainDeparture foundTrainDeparture = null;
 
-    Iterator<TrainDeparture> it = this.traindepartures.values().iterator();
+    Iterator<TrainDeparture> it = this.trainDepartures.values().iterator();
 
     while ((foundTrainDeparture == null) && it.hasNext()) {
       TrainDeparture trainDeparture = it.next();
@@ -97,7 +96,7 @@ public class TrainDispatchRecord {
 
 
   public void removeTrainDeparturesFromBefore(LocalTime removeTime) {
-    Iterator<Map.Entry<Integer, TrainDeparture>> it = this.traindepartures.entrySet().iterator();
+    Iterator<Map.Entry<Integer, TrainDeparture>> it = this.trainDepartures.entrySet().iterator();
 
     while (it.hasNext()) {
       HashMap.Entry<Integer, TrainDeparture> entry = it.next();
@@ -118,7 +117,7 @@ public class TrainDispatchRecord {
    * @return a sorted list of train departures by departure time.
    */
   public List<TrainDeparture> getSortedTrainDeparture () {
-    List<TrainDeparture> sortedTrainDepartureList = new ArrayList<>(this.traindepartures.values());
+    List<TrainDeparture> sortedTrainDepartureList = new ArrayList<>(this.trainDepartures.values());
 
     sortedTrainDepartureList.sort((trainDeparture1, trainDeparture2) ->
               trainDeparture1.getDepartureTime().compareTo(trainDeparture2.getDepartureTime()));

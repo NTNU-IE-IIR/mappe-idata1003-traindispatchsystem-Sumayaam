@@ -123,7 +123,7 @@ public class TrainDeparture {
    * @param trainNumber to be set. Must be a positive number.
    */
   private void setTrainNumber(int trainNumber) {
-    if(trainNumber >0)
+    if (trainNumber >0)
       this.trainNumber = trainNumber;
   }
 

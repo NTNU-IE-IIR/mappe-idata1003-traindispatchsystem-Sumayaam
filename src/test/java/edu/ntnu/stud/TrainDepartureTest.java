@@ -38,6 +38,8 @@ class TrainDepartureTest {
 
     /**
      * Positive test which test valid train departure inputs.
+     *
+     * Test that the train departure is created correctly.
      */
 
     @Test
@@ -50,15 +52,22 @@ class TrainDepartureTest {
     }
     /**
      * Negative test which test invalid train departure inputs.
+     *
+     * Tests that train departure handles invalid inputs correctly
      */
     @Test
     public void testInvalidTrainDepartureInput() {
-       //lag negativ enhetstest
+        departure = new TrainDeparture(LocalTime.of(12, 00),
+                "F1",
+                -2,
+                "",
+                null,-1);
 
-    /**
-     * Positive test for track
-     */
-
+        assertEquals(LocalTime.of(12, 0), departure.getDepartureTime());
+        assertEquals("F1",departure.getLine());
+        assertEquals(0, departure.getTrainNumber());
+        assertEquals("INVALID DESTINATION", departure.getDestination());
+        assertEquals(0, departure.getTrack());
 
     }
 
