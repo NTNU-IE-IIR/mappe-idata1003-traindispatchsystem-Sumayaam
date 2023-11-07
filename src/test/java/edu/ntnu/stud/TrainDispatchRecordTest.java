@@ -122,11 +122,47 @@ public void testAddingTrainDepartureWithSameTrainNumber() {
     }
 
 /**
+ *Tests that train departures from before a given time is removed from the record.
  *
- *
- *
-  */
+ * positive test
+ */
 
+@Test
+    public void testRemovingTrainDeparturesFromBefore() {
+    this.trainDispatchRecord.removeTrainDeparturesFromBefore(LocalTime.of(14, 0));
+    assertEquals(2, this.trainDispatchRecord.getNumberOfTrainDepartures());
+}
 
+/**
+ * Tests that train departures after a given time is not removed from the record.
+ *
+ * negative test
+ */
+@Test
+
+public void testRemovingTrainDeparturesFromAfter() {
+    this.trainDispatchRecord.removeTrainDeparturesFromBefore(LocalTime.of(14, 0));
+    assertEquals(2, this.trainDispatchRecord.getNumberOfTrainDepartures());
+}
+/**
+ * Tests that train departures is returned as a sorted list depending on departure time.
+ *
+ * positive test
+ */
+@Test
+public void testGetSortedTrainDeparture() {
+    assertEquals(3, this.trainDispatchRecord.getSortedTrainDeparture().size());
+    assertEquals(LocalTime.of(12, 0), this.trainDispatchRecord.getSortedTrainDeparture().get(0).getDepartureTime());
+    assertEquals(LocalTime.of(14, 0), this.trainDispatchRecord.getSortedTrainDeparture().get(1).getDepartureTime());
+    assertEquals(LocalTime.of(15, 0), this.trainDispatchRecord.getSortedTrainDeparture().get(2).getDepartureTime());
+}
+
+/**
+ * Tests that train departures is returned as a sorted list depending on departure time.
+ *
+ * negative test
+ *
+ */
 
 }
+
