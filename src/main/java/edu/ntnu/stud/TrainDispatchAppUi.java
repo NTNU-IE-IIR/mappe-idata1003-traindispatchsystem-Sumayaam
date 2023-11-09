@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class TrainDispatchAppUi {
-    private TrainDispatchRecord trainDispatchRecord;
+  private TrainDispatchRecord trainDispatchRecord;
 
     // A String constant holding the current version of the application.
     private static final String version = "v0.1-SNAPSHOT";
@@ -78,7 +78,6 @@ public void init() {
                 finished = true;
             }
         }
-
         // Print all students in the register
        // presentAllTrainDepartureInfo();
         System.out.println("Thank you for using this Train Dispatch Record. Bye!");

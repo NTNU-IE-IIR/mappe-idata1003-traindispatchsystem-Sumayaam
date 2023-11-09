@@ -21,10 +21,10 @@ public class TrainDeparture {
    *
    * @param departureTime  The departure time of the train(has to be valid LocalTime).
    * @param line           The train line.(cannot be null or empty line).
-   * @param trainNumber    The train number(uniqye for each day and must be positive).
+   * @param trainNumber    The train number(uniqye for each train and must be positive).
    * @param destination    The train destination.
-   * @param delay          The delay of the train (hh.mm) (00.00, if no delay).
-   * @param track          the track number of the train(empty line if no track is assigned).
+   * @param delay          The delay of the train (hh.mm) if no delay then 00.00.
+   * @param track          the track number of the train(return -1 if no track is assigned).
    *
    */
   public TrainDeparture(LocalTime departureTime, String line, int trainNumber,
@@ -96,7 +96,7 @@ public class TrainDeparture {
   public int getTrack() {
     return track;
     }
-  /**
+/**
    * Sets the departure time of the train
    * @param departureTime to be set.
    */
@@ -129,11 +129,11 @@ public class TrainDeparture {
   private void setTrainNumber(int trainNumber) {
     if (trainNumber > 0) {
       this.trainNumber = trainNumber;
-  }
+      }
   }
 
   /**
-   *Sets the destination of the train.
+   * Sets the destination of the train.
    * If the destination is null or empty, the destination is set to "INVALID DESTINATION"
    *
    * @param destination to be set. Must contain a text for final destination
@@ -148,17 +148,23 @@ public class TrainDeparture {
 
   /**
  * Sets the delay of the train.
+ * If the delay is null, the delay is set to (00.00).
  *
  * @param delay the amount of delay.
  */
   public void setDelay(LocalTime delay) {
+    if (delay == null) {
+      this.delay = LocalTime.of(0, 0);
+    } else {
       this.delay = delay;
     }
+  }
 
 
   /**
   * sets the track of the train.
-   * If the track is negative, the track is set to 0.
+   * If the track is negative, the track is set to 0
+   * and if no trick is assigned, the track is set to -1.
   *
   * @param track the track number.
   */
@@ -166,7 +172,8 @@ public class TrainDeparture {
   public void setTrack(int track) {
     if (track > 0) {
       this.track = track;
-      // hvis spor enda ikke er tildelt så er track -1
+    } else {
+      this.track = -1;
     }
 
 

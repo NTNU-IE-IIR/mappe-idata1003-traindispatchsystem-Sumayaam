@@ -11,7 +11,8 @@ import java.util.Map;
 
 /**
  * Represents a record of train departures.
- * * <p> The following functionality is implemented
+ *
+ * <p> The following functionality is implemented.
  *
  * <ul> <li> Add a train departure</li>
  *
@@ -47,7 +48,7 @@ public class TrainDispatchRecord {
    * @return {@code false} if the train departure was not added.
      */
   public boolean addTrainDeparture(TrainDeparture trainDeparture) {
-    // Guard condition to check if the train departure is null, or if the train number already exists
+    // Guard condition to check if the train departure is null, or if the train number already exists.
     if (trainDeparture == null || this.trainDepartures.containsKey(trainDeparture.getTrainNumber())) {
       return false;
     }
@@ -58,6 +59,7 @@ public class TrainDispatchRecord {
 public int getNumberOfTrainDepartures() {
   return this.trainDepartures.size();
 }
+
   /**
    * Returns the train departure with a given train number.
    *
