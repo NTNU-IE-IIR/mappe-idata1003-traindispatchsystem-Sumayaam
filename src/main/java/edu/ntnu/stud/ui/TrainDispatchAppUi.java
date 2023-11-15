@@ -22,17 +22,17 @@ public class TrainDispatchAppUi {
      * Creates an instance of TrainDispatchApp.
      */
   private static final int ADD_NEW_TRAIN_DEPARTURE = 1;
-  private static final int PRINT_ALL_TRAIN_DEPARTURES = 2;
+  private static final int SET_CURRENT_TIME = 2;
+  private static final int PRINT_ALL_TRAIN_DEPARTURES = 3;
 
-  private static final int LIST_ALL_TRAIN_DEPARTURES_BY_DEPARTURE_TIME = 3;
+  private static final int LIST_ALL_TRAIN_DEPARTURES_BY_DEPARTURE_TIME = 4;
 
-  private static final int SEARCH_BY_TRAIN_NUMBER = 4;
-  private static final int SEARCH_BY_DESTINATION = 5;
+  private static final int SEARCH_BY_TRAIN_NUMBER = 5;
+  private static final int SEARCH_BY_DESTINATION = 6;
 
-
-  private static final int REMOVE_TRAIN_DEPARTURE = 6;
-  private static final int EXIT = 9;
-  private static final int MAX_MENU_CHOICE = 9;
+  private static final int REMOVE_TRAIN_DEPARTURE = 7;
+  private static final int EXIT = 10;
+  private static final int MAX_MENU_CHOICE = 10;
 
   public TrainDispatchAppUi() {
     // Intentionally empty
@@ -93,12 +93,13 @@ public class TrainDispatchAppUi {
     private void displayMenu() {
         System.out.println("Please select an option from the menu:");
         System.out.println("1. Add a new train departure");
-        System.out.println("2. Print all train departures");
-        System.out.println("3. List all train departures by departure time");
-        System.out.println("4. Search by train number");
-        System.out.println("5. Search by destination");
-        System.out.println("6. Remove train departure");
-        System.out.println("9. Exit");
+        System.out.println("2. Set current time");
+        System.out.println("3. Print all train departures");
+        System.out.println("4. List all train departures by departure time");
+        System.out.println("5. Search by train number");
+        System.out.println("6. Search by destination");
+        System.out.println("7. Remove train departure");
+        System.out.println("10. Exit");
     }
 
     /**
@@ -117,6 +118,9 @@ public class TrainDispatchAppUi {
     switch (selectedMenu) {
         case ADD_NEW_TRAIN_DEPARTURE:
             this.addNewTrainDeparture();
+            break;
+        case SET_CURRENT_TIME:
+            this.setCurrentTime();
             break;
 
         case PRINT_ALL_TRAIN_DEPARTURES:
@@ -150,11 +154,17 @@ public class TrainDispatchAppUi {
     return result;
   }
 
+    private void setCurrentTime() {
+      //TODO: Implement this method
+    }
+
     /**
      * Removes a train departure from the register.
      */
     private void removeTrainDepartures() {
-      // TODO: Implement this method
+
+
+
      }
 
 

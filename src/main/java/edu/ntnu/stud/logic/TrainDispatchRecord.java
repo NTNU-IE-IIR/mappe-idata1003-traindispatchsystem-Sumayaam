@@ -1,12 +1,10 @@
 package edu.ntnu.stud.logic;
 
 import edu.ntnu.stud.entity.TrainDeparture;
-
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 
@@ -14,15 +12,15 @@ import java.util.Map;
 /**
  * Represents a record of train departures.
  *
- * <p> The following functionality is implemented.
+ *<p>The following functionality is implemented.
  *
- * <ul> <li> Add a train departure</li>
- *
- *
+ *<ul> <li> Add a train departure</li>
  *
  *
  *
- * </ul>
+ *
+ *
+ *</ul>
  *
  */
 public class TrainDispatchRecord {
@@ -34,7 +32,7 @@ public class TrainDispatchRecord {
    */
   public TrainDispatchRecord() {
     this.trainDepartures = new HashMap<>();
-    }
+  }
 
   /**
    * Adds a train departure to the record.
@@ -46,21 +44,21 @@ public class TrainDispatchRecord {
    * </p>
    *
    * @param trainDeparture the train departure to be added.
-   * @return {@code true} if the train departure was added.
-   * @return {@code false} if the train departure was not added.
-     */
+   * @return {@code true} if the train departure was added,
+   * and {@code false} if the train departure was not added.
+   */
   public boolean addTrainDeparture(TrainDeparture trainDeparture) {
-    // Guard condition to check if the train departure is null, or if the train number already exists.
-    if (trainDeparture == null || this.trainDepartures.containsKey(trainDeparture.getTrainNumber())) {
+    if (trainDeparture == null || this.trainDepartures.containsKey(
+            trainDeparture.getTrainNumber())) {
       return false;
     }
     this.trainDepartures.put(trainDeparture.getTrainNumber(), trainDeparture);
     return true;
-}
+  }
 
-public int getNumberOfTrainDepartures() {
-  return this.trainDepartures.size();
-}
+  public int getNumberOfTrainDepartures() {
+    return this.trainDepartures.size();
+  }
 
   /**
    * Returns the train departure with a given train number.
@@ -72,15 +70,16 @@ public int getNumberOfTrainDepartures() {
 
   public TrainDeparture findTrainDepartureByTrainNumber(int trainNumber) {
     return this.trainDepartures.get(trainNumber);
-    }
+  }
 
 
   /**
      * Searches the record for a train departure with the given destination.
      * If no train departure matches the destination, null is returned.
      *
-     * <p> in this method we use an iterator to iterate over the values of the hashmap.
-     * resulting in the first train departure in the record with a matching destination being returned.
+     * <p>in this method we use an iterator to iterate over the values of the hashmap.
+     * resulting in the first train departure in the record with a matching destination
+     * being returned.
      *
      *
      * @param destination of the train departure to search for.
@@ -95,14 +94,13 @@ public int getNumberOfTrainDepartures() {
       TrainDeparture trainDeparture = it.next();
       if (trainDeparture.getDestination().equals(destination)) {
         foundTrainDeparture = trainDeparture;
-          }
-
- }
+      }
+    }
     return foundTrainDeparture;
   }
 
   /**
-   * Remove Departure from the record that are scheduled to depart before the give time,
+   * Remove Departure from the record that are scheduled to depart before the given time,
    * taking the delay into account.
    *
    * @param removeTime the time before which all departures should be removed.
@@ -117,7 +115,8 @@ public int getNumberOfTrainDepartures() {
       TrainDeparture trainDeparture = entry.getValue();
 
       LocalTime delay = trainDeparture.getDelay();
-      LocalTime newDepartureTime = trainDeparture.getDepartureTime().plusHours(delay.getHour()).plusMinutes(delay.getMinute());
+      LocalTime newDepartureTime = trainDeparture.getDepartureTime().plusHours(delay.getHour())
+              .plusMinutes(delay.getMinute());
 
       if (newDepartureTime.isBefore(removeTime)) {
         it.remove();
@@ -126,15 +125,17 @@ public int getNumberOfTrainDepartures() {
   }
 
   /**
-   * Returns the number of train departures in the record as a sorted list depending on departure Time.
+   * Returns the number of train departures as a sorted list depending on departure Time.
    *
    * @return a sorted list of train departures by departure time.
    */
 
   public ArrayList<TrainDeparture> getTrainDeparturesSortedByDepartureTime() {
-    ArrayList<TrainDeparture> sortedTrainDepartureList = new ArrayList<>(this.trainDepartures.values());
-    sortedTrainDepartureList.sort((trainDeparture1, trainDeparture2) -> trainDeparture1.getDepartureTime().
-            compareTo(trainDeparture2.getDepartureTime()));
+    ArrayList<TrainDeparture> sortedTrainDepartureList = new ArrayList<>(
+            this.trainDepartures.values());
+    sortedTrainDepartureList.sort((trainDeparture1, trainDeparture2) ->
+            trainDeparture1.getDepartureTime()
+            .compareTo(trainDeparture2.getDepartureTime()));
     return sortedTrainDepartureList;
   }
 
@@ -143,9 +144,9 @@ public int getNumberOfTrainDepartures() {
    *
    * @return iterator for the record.
    */
-    public Iterator<TrainDeparture> iterator() {
-      return this.trainDepartures.values().iterator();
-    }
+  public Iterator<TrainDeparture> iterator() {
+    return this.trainDepartures.values().iterator();
+  }
 }
 
 
