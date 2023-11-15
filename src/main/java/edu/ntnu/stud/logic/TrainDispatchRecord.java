@@ -1,4 +1,6 @@
-package edu.ntnu.stud;
+package edu.ntnu.stud.logic;
+
+import edu.ntnu.stud.entity.TrainDeparture;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -128,13 +130,21 @@ public int getNumberOfTrainDepartures() {
    *
    * @return a sorted list of train departures by departure time.
    */
-  public List<TrainDeparture> getSortedTrainDeparture() {
-    List<TrainDeparture> sortedTrainDepartureList = new ArrayList<>(this.trainDepartures.values());
 
-    sortedTrainDepartureList.sort((trainDeparture1, trainDeparture2) ->
-              trainDeparture1.getDepartureTime().compareTo(trainDeparture2.getDepartureTime()));
+  public ArrayList<TrainDeparture> getTrainDeparturesSortedByDepartureTime() {
+    ArrayList<TrainDeparture> sortedTrainDepartureList = new ArrayList<>(this.trainDepartures.values());
+    sortedTrainDepartureList.sort((trainDeparture1, trainDeparture2) -> trainDeparture1.getDepartureTime().
+            compareTo(trainDeparture2.getDepartureTime()));
     return sortedTrainDepartureList;
+  }
 
+  /**
+   * Return an iterator for the record.
+   *
+   * @return iterator for the record.
+   */
+    public Iterator<TrainDeparture> iterator() {
+      return this.trainDepartures.values().iterator();
     }
 }
 

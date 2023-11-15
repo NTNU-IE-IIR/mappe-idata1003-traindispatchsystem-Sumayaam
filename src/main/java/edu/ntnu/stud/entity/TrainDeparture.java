@@ -1,4 +1,4 @@
-package edu.ntnu.stud;
+package edu.ntnu.stud.entity;
 
 import java.time.LocalTime;
 
@@ -175,10 +175,11 @@ public class TrainDeparture {
     } else {
       this.track = -1;
     }
-
-
   }
 
+  public int compareTo(TrainDeparture otherTrainDeparture) {
+    return this.getDepartureTime().compareTo(otherTrainDeparture.getDepartureTime());
+  }
 }
 
 

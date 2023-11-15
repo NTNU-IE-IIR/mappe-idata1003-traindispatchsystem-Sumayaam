@@ -1,9 +1,12 @@
-package edu.ntnu.stud;
+package edu.ntnu.stud.logic;
 
+import edu.ntnu.stud.entity.TrainDeparture;
+import edu.ntnu.stud.logic.TrainDispatchRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,13 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit test for TrainDispatchRecord.
- *
  * the following is/should be tested:
  * <p> The following tests covers both the required functionality
  * which is expected to be delivered/supplied by the train dispatch record class (positive test), and
  * the robustness of the class when it is being used in ways it was not intended.(negative test)
- *
- * <ul><
+ * <ul>
  *    <li> Test adding a train departure by using valid input
  *    </li>
  *    <li> Test adding a train departure by using invalid input {@code null}</li>
@@ -35,7 +36,8 @@ import static org.junit.jupiter.api.Assertions.*;
  *    <li Tests that train departures with the same train numbers will not be added to the sorted list</li>
  *    <li> Test that train departures will not be removed from the record,
  *    if the delay is later than the given time to this specific </li>
- *
+ *    <Li> Test that the compareTo method works correctly</Li>
+ *     </ul>
  *
  *
  *
@@ -52,21 +54,21 @@ class TrainDispatchRecordTest {
     @BeforeEach
     public void setUp() {
         this.trainDispatchRecord = new TrainDispatchRecord();
-        this.trainDispatchRecord.addTrainDeparture(new TrainDeparture(LocalTime.of(13, 0),
+        this.trainDispatchRecord.addTrainDeparture(new TrainDeparture(LocalTime.parse("12:00"),
                 "F1",
                 789,
                 "Oslo",
-                LocalTime.of(0, 10), 4));
-        this.trainDispatchRecord.addTrainDeparture(new TrainDeparture(LocalTime.of(14, 30),
+                LocalTime.parse("10:00"), 4));
+        this.trainDispatchRecord.addTrainDeparture(new TrainDeparture(LocalTime.parse("14:00"),
                 "L1",
                 123,
                 "Stockholm",
-                LocalTime.of(0, 5), 5));
-        this.trainDispatchRecord.addTrainDeparture(new TrainDeparture(LocalTime.of(16, 0),
+                LocalTime.parse("00:10" ), 5));
+        this.trainDispatchRecord.addTrainDeparture(new TrainDeparture(LocalTime.parse("15:00"),
                 "L2",
                 321,
                 "Copenhagen",
-                LocalTime.of(0, 0), 6));
+                LocalTime.parse("00:10"), 6));
     }
 
 /**
@@ -80,11 +82,11 @@ class TrainDispatchRecordTest {
 
 @Test
     public void testAddingTrainDepartureByUsingValidInput() {
-    TrainDeparture trainDeparture = new TrainDeparture(LocalTime.of(16, 0),
+    TrainDeparture trainDeparture = new TrainDeparture(LocalTime.parse("16:00"),
             "L3",
             456,
             "Berlin",
-            LocalTime.of(0, 40), 7);
+            LocalTime.parse("00:40"), 7);
     this.trainDispatchRecord.addTrainDeparture(trainDeparture);
     assertEquals(trainDeparture, this.trainDispatchRecord.findTrainDepartureByTrainNumber(trainDeparture.getTrainNumber()));
     assertEquals(4, this.trainDispatchRecord.getNumberOfTrainDepartures());
@@ -97,11 +99,11 @@ class TrainDispatchRecordTest {
  */
 @Test
 public void testAddingTrainDepartureWithAlreadyExistingTrainNumber() {
-TrainDeparture trainDeparture = new TrainDeparture(LocalTime.of(16, 0),
+TrainDeparture trainDeparture = new TrainDeparture(LocalTime.parse("16:00"),
             "L3",
             321,
             "Berlin",
-            LocalTime.of(0, 40), 7);
+            LocalTime.parse("00:20"), 7);
     boolean trainDepartureAdded = this.trainDispatchRecord.addTrainDeparture(trainDeparture);
     assertFalse(trainDepartureAdded);
     assertEquals(3, this.trainDispatchRecord.getNumberOfTrainDepartures());
@@ -152,16 +154,16 @@ public void tesFindingTrainDepartureByUsingTrainNumberThatDoesNotExist() {
  */
 
 public void testAddingTrainDepartureWithSameTrainNumber() {
-    TrainDeparture trainDeparture1 = new TrainDeparture(LocalTime.of(16, 0),
+    TrainDeparture trainDeparture1 = new TrainDeparture(LocalTime.parse("16:00"),
             "L3",
             456,
             "Berlin",
-            LocalTime.of(0, 40), 7);
-    TrainDeparture trainDeparture2 = new TrainDeparture(LocalTime.of(16, 0),
+            LocalTime.parse("00:40"), 7);
+    TrainDeparture trainDeparture2 = new TrainDeparture(LocalTime.parse("16:00"),
             "L3",
             456,
             "Trondheim",
-            LocalTime.of(0, 20), 7);
+            LocalTime.parse("00:20"), 7);
 
     boolean firstTrainDepartureAdded = this.trainDispatchRecord.addTrainDeparture(trainDeparture1);
     boolean secondTrainDepartureAdded = this.trainDispatchRecord.addTrainDeparture(trainDeparture2);
@@ -193,7 +195,7 @@ public void testFindingTrainDepartureByUsingDestinationThatDoesNotExist() {
 }
 
 /**
- * Test adding a train departure by using invalid input {code null} or blank-or empty Strin
+ * Test adding a train departure by using invalid input {code null} or blank-or empty String
  * and white space
  *<p>
  * negative test
@@ -219,8 +221,8 @@ public void testFindingTrainDepartureByUsingDestinationThatDoesNotExist() {
     public void testRemovingTrainDeparturesFromBefore() {
 
     assertEquals(3, this.trainDispatchRecord.getNumberOfTrainDepartures());
-    this.trainDispatchRecord.removeTrainDeparturesFromBefore(LocalTime.of(14, 0));
-    assertEquals(2, this.trainDispatchRecord.getNumberOfTrainDepartures());
+    this.trainDispatchRecord.removeTrainDeparturesFromBefore(LocalTime.parse("16:00"));
+    assertEquals(1, this.trainDispatchRecord.getNumberOfTrainDepartures());
 }
 
 /**
@@ -233,8 +235,8 @@ public void testFindingTrainDepartureByUsingDestinationThatDoesNotExist() {
 
 public void testsTrainDeparturesBeforeGivenTimeRemainsTakingDelayIntoAccount() {
     assertEquals(3, this.trainDispatchRecord.getNumberOfTrainDepartures());
-    this.trainDispatchRecord.removeTrainDeparturesFromBefore(LocalTime.of(15, 0));
-    assertEquals(1, this.trainDispatchRecord.getNumberOfTrainDepartures());
+    this.trainDispatchRecord.removeTrainDeparturesFromBefore(LocalTime.parse("15:00"));
+    assertEquals(2, this.trainDispatchRecord.getNumberOfTrainDepartures());
 }
 
 /**
@@ -245,13 +247,13 @@ public void testsTrainDeparturesBeforeGivenTimeRemainsTakingDelayIntoAccount() {
  */
 @Test
 public void testAddingDuplicateTrainNumbersToTheSortedTrainDeparture() {
-    TrainDeparture DuplicateDeparture1 = new TrainDeparture(LocalTime.of(16, 0),
+    TrainDeparture DuplicateDeparture1 = new TrainDeparture(LocalTime.parse("16:00"),
             "L3",
             123,
             "Helsinki",
-            LocalTime.of(0, 40), 7);
+            LocalTime.parse("00:40"), 7);
     assertFalse(this.trainDispatchRecord.addTrainDeparture(DuplicateDeparture1));
-    assertEquals(3,this.trainDispatchRecord.getSortedTrainDeparture().size());
+    assertEquals(3,this.trainDispatchRecord.getTrainDeparturesSortedByDepartureTime().size());
 }
 
 
@@ -263,9 +265,40 @@ public void testAddingDuplicateTrainNumbersToTheSortedTrainDeparture() {
  */
 @Test
 public void testGetSortedTrainDeparture() {
-   List<TrainDeparture> sortedTrainDepartureList = this.trainDispatchRecord.getSortedTrainDeparture();
+   ArrayList<TrainDeparture> sortedTrainDepartureList =
+           this.trainDispatchRecord.getTrainDeparturesSortedByDepartureTime();
 assertEquals(3, sortedTrainDepartureList.size());
 }
+
+/**
+ * Test that the compare To method works as it should
+ *<p></p>
+ * positive test
+ */
+
+@Test
+    public void testCompareTo() {
+    TrainDeparture trainDeparture1 = new TrainDeparture(LocalTime.parse("16:00"),
+            "L3",
+            123,
+            "Helsinki",
+            LocalTime.parse("00:40"), 7);
+    TrainDeparture trainDeparture2 = new TrainDeparture(LocalTime.parse("15:00"),
+            "L4",
+            543,
+            "Trondheim",
+            LocalTime.parse("00:20"),
+            7);
+    TrainDeparture trainDeparture3 = new TrainDeparture(LocalTime.parse("17:00"),
+            "F3",
+            393,
+            "Bergen",
+            LocalTime.parse("00:00"), -1);
+    assertTrue(trainDeparture1.compareTo(trainDeparture2) > 0);
+    assertTrue(trainDeparture2.compareTo(trainDeparture3) < 0);
+
+
+    }
 
 }
 

@@ -1,9 +1,9 @@
-package edu.ntnu.stud;
+package edu.ntnu.stud.entity;
+import edu.ntnu.stud.entity.TrainDeparture;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.accessibility.AccessibleStateSet;
 import java.time.LocalTime;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,13 +45,13 @@ class TrainDepartureTest {
      */
 
     @Test
-    public void testvalidtraindepartureinput() {
+    public void testValidTrainDepartureInput() {
         assertEquals(LocalTime.of(12, 0), departure.getDepartureTime());
         assertEquals("F1",departure.getLine());
         assertEquals(789, departure.getTrainNumber());
         assertEquals("Oslo", departure.getDestination());
         assertEquals(LocalTime.of(0, 10), departure.getDelay());
-        assertEquals(3, departure.getTrack());
+        assertEquals(4, departure.getTrack());
     }
     /**
      * Negative test which test invalid train departure inputs.
