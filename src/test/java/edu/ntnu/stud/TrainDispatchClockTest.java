@@ -80,11 +80,12 @@ class TrainDispatchClockTest {
     //public void testSettingCurrentTimeToInvalidTime() {
         //trainDispatchClock.setCurrentTime(LocalTime.parse("24:00"));
         //assertEquals("00:00", trainDispatchClock.getCurrentTime().toString());
-    }
+    //}
 
     /**
      * Tests that the time is not updated when setting the time to null
      */
+
     @Test
     public void testSettingCurrentTimeToNull() {
         trainDispatchClock.setCurrentTime(null);

@@ -8,14 +8,16 @@ import java.time.LocalTime;
  * Time cannot be set backwards.
  *
  */
+
 public class TrainDispatchClock {
-  private LocalTime currentTime;
+  private static LocalTime currentTime;
 
   /**
   * Creates an instance of the TrainDispatchClock.
   */
+
   public TrainDispatchClock() {
-    this.currentTime = LocalTime.of(0, 0);
+    currentTime = LocalTime.of(0, 0);
   }
   /**
    * Returns the current time as localtime instance.
@@ -23,8 +25,8 @@ public class TrainDispatchClock {
    * @return current time.
    */
 
-  public LocalTime getCurrentTime() {
-    return this.currentTime;
+  public static LocalTime getCurrentTime() {
+    return currentTime;
   }
 
   /**
@@ -33,12 +35,13 @@ public class TrainDispatchClock {
    *
    * @param time the new time to be set. Must not be earlier than the current time.
    */
-  public void setCurrentTime(LocalTime time) {
+
+  public static void setCurrentTime(LocalTime time) {
     if (time == null || time.isBefore(LocalTime.of(0, 0)) || time.isAfter(LocalTime.of(23, 59))
-            || time.isBefore(this.currentTime)) {
-      this.currentTime = LocalTime.of(0, 0);
+            || time.isBefore(currentTime)) {
+      currentTime = LocalTime.of(0, 0);
     } else {
-      this.currentTime = time;
+      currentTime = time;
     }
   }
 }

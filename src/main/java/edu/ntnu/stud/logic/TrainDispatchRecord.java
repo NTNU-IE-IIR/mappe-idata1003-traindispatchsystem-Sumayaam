@@ -107,8 +107,9 @@ public class TrainDispatchRecord {
    */
 
 
-  public void removeTrainDeparturesFromBefore(LocalTime removeTime) {
+  public int removeTrainDeparturesFromBefore(LocalTime removeTime) {
     Iterator<Map.Entry<Integer, TrainDeparture>> it = this.trainDepartures.entrySet().iterator();
+    int removedCount = 0;
 
     while (it.hasNext()) {
       HashMap.Entry<Integer, TrainDeparture> entry = it.next();
@@ -120,9 +121,12 @@ public class TrainDispatchRecord {
 
       if (newDepartureTime.isBefore(removeTime)) {
         it.remove();
+        removedCount++;
       }
     }
+    return removedCount;
   }
+
 
   /**
    * Returns the number of train departures as a sorted list depending on departure Time.
