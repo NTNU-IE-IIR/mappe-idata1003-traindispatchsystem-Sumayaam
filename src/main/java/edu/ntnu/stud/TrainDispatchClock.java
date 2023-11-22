@@ -10,13 +10,13 @@ import java.time.LocalTime;
  */
 
 public class TrainDispatchClock {
-  private static LocalTime currentTime;
+  private  LocalTime currentTime;
 
   /**
   * Creates an instance of the TrainDispatchClock.
   */
 
-  public TrainDispatchClock() {
+  public  TrainDispatchClock() {
     currentTime = LocalTime.of(0, 0);
   }
   /**
@@ -25,7 +25,7 @@ public class TrainDispatchClock {
    * @return current time.
    */
 
-  public static LocalTime getCurrentTime() {
+  public  LocalTime getCurrentTime() {
     return currentTime;
   }
 
@@ -36,12 +36,13 @@ public class TrainDispatchClock {
    * @param time the new time to be set. Must not be earlier than the current time.
    */
 
-  public static void setCurrentTime(LocalTime time) {
+  public void setCurrentTime(LocalTime time) {
+    //TODO- USE EXEPTIONS
     if (time == null || time.isBefore(LocalTime.of(0, 0)) || time.isAfter(LocalTime.of(23, 59))
-            || time.isBefore(currentTime)) {
-      currentTime = LocalTime.of(0, 0);
+            || time.isBefore(this.currentTime)) {
+      this.currentTime = LocalTime.of(0, 0);
     } else {
-      currentTime = time;
+      this.currentTime = time;
     }
   }
 }

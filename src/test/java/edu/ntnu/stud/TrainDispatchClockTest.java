@@ -33,7 +33,7 @@ class TrainDispatchClockTest {
 
     @BeforeEach
     public void setUp() {
-        this.trainDispatchClock = new TrainDispatchClock();
+        trainDispatchClock = new TrainDispatchClock();
     }
 
     /**
@@ -51,7 +51,7 @@ class TrainDispatchClockTest {
      */
 
     @Test
-    public void testSettingTimeToValidLaterTime() {
+    public void testSettingTimeToValidLaterTimeThanCurrentTime() {
         LocalTime newTime = LocalTime.parse("13:30");
         trainDispatchClock.setCurrentTime(newTime);
         assertEquals("13:30", trainDispatchClock.getCurrentTime().toString());
@@ -76,11 +76,11 @@ class TrainDispatchClockTest {
      * negative test.
      */
 
-    //@Test
+   // @Test
     //public void testSettingCurrentTimeToInvalidTime() {
-        //trainDispatchClock.setCurrentTime(LocalTime.parse("24:00"));
-        //assertEquals("00:00", trainDispatchClock.getCurrentTime().toString());
-    //}
+       // trainDispatchClock.setCurrentTime(LocalTime.parse("24:00"));
+       // assertEquals("00:00", trainDispatchClock.getCurrentTime().toString());
+   // }
 
     /**
      * Tests that the time is not updated when setting the time to null

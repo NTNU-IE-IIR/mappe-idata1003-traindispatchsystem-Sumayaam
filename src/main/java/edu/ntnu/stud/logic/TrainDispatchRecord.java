@@ -8,20 +8,18 @@ import java.util.Iterator;
 import java.util.Map;
 
 
-
 /**
  * Represents a record of train departures.
  *
- *<p>The following functionality is implemented.
+ * <p>The following functionality is implemented.
  *
- *<ul> <li> Add a train departure</li>
- *
- *
+ * <ul> <li> Add a train departure</li>
  *
  *
  *
- *</ul>
  *
+ *
+ * </ul>
  */
 public class TrainDispatchRecord {
   private HashMap<Integer, TrainDeparture> trainDepartures;
@@ -49,7 +47,7 @@ public class TrainDispatchRecord {
    */
   public boolean addTrainDeparture(TrainDeparture trainDeparture) {
     if (trainDeparture == null || this.trainDepartures.containsKey(
-            trainDeparture.getTrainNumber())) {
+        trainDeparture.getTrainNumber())) {
       return false;
     }
     this.trainDepartures.put(trainDeparture.getTrainNumber(), trainDeparture);
@@ -74,17 +72,16 @@ public class TrainDispatchRecord {
 
 
   /**
-     * Searches the record for a train departure with the given destination.
-     * If no train departure matches the destination, null is returned.
-     *
-     * <p>in this method we use an iterator to iterate over the values of the hashmap.
-     * resulting in the first train departure in the record with a matching destination
-     * being returned.
-     *
-     *
-     * @param destination of the train departure to search for.
-     * @return the train departure found with the given destination.
-     */
+   * Searches the record for a train departure with the given destination.
+   * If no train departure matches the destination, null is returned.
+   *
+   * <p>in this method we use an iterator to iterate over the values of the hashmap.
+   * resulting in the first train departure in the record with a matching destination
+   * being returned.
+   *
+   * @param destination of the train departure to search for.
+   * @return the train departure found with the given destination.
+   */
   public TrainDeparture findTrainDepartureByDestination(String destination) {
     TrainDeparture foundTrainDeparture = null;
 
@@ -117,7 +114,7 @@ public class TrainDispatchRecord {
 
       LocalTime delay = trainDeparture.getDelay();
       LocalTime newDepartureTime = trainDeparture.getDepartureTime().plusHours(delay.getHour())
-              .plusMinutes(delay.getMinute());
+          .plusMinutes(delay.getMinute());
 
       if (newDepartureTime.isBefore(removeTime)) {
         it.remove();
@@ -136,9 +133,9 @@ public class TrainDispatchRecord {
 
   public ArrayList<TrainDeparture> getTrainDeparturesSortedByDepartureTime() {
     ArrayList<TrainDeparture> sortedTrainDepartureList = new ArrayList<>(
-            this.trainDepartures.values());
+        this.trainDepartures.values());
     sortedTrainDepartureList.sort((trainDeparture1, trainDeparture2) ->
-            trainDeparture1.getDepartureTime()
+        trainDeparture1.getDepartureTime()
             .compareTo(trainDeparture2.getDepartureTime()));
     return sortedTrainDepartureList;
   }
