@@ -3,13 +3,13 @@ package edu.ntnu.stud;
 import edu.ntnu.stud.ui.TrainDispatchAppUi;
 
 /**
- *
+ * //TODO: Add description.
  *
  */
 
 public class TrainDispatchApp {
   /**
-   *
+   * //TODO: Add description.
    * @param args
    */
   public static void main(String[] args) {

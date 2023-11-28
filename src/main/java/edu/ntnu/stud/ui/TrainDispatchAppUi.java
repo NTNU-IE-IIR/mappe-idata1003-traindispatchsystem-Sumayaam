@@ -4,9 +4,8 @@ package edu.ntnu.stud.ui;
 import edu.ntnu.stud.TrainDispatchClock;
 import edu.ntnu.stud.entity.TrainDeparture;
 import edu.ntnu.stud.logic.TrainDispatchRecord;
-
 import java.time.LocalTime;
-import java.util.Iterator;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -37,7 +36,6 @@ public class TrainDispatchAppUi {
 
   private static final int UPDATE_CLOCK = 7;
 
-  private static final int REMOVE_DEPARTED_TRAIN_DEPARTURES = 8;
   private static final int EXIT = 10;
   private static final int MAX_MENU_CHOICE = 10;
 
@@ -112,7 +110,6 @@ public class TrainDispatchAppUi {
     System.out.println("5. Search by train number.");
     System.out.println("6. Search by destination.");
     System.out.println("7. Update clock.");
-    System.out.println("8. Remove departed train departures.");
     System.out.println("10. Exit application.");
 
   }
@@ -159,17 +156,12 @@ public class TrainDispatchAppUi {
         this.handleClockUpdate();
         break;
 
-      case REMOVE_DEPARTED_TRAIN_DEPARTURES:
-        this.removeDepartedTrainDepartures();
-        break;
-
-
       case EXIT:
         result = false;
         break;
 
       default:
-        System.out.println("\n Please enter a number between 1 and" + MAX_MENU_CHOICE);
+        System.out.println("\n Please enter a number between 1 and " + MAX_MENU_CHOICE);
         System.out.println("Invalid menu choice. Please try again.");
         break;
     }
@@ -181,20 +173,28 @@ public class TrainDispatchAppUi {
    */
 
   private void addDelay() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("Please enter the train number to the train you want to add delay to: ");
-    int searchTrainNumber = scanner.nextInt();
-    scanner.nextLine();
+    final Scanner inputScanner = new Scanner(System.in);
+    int searchinTrainNumber = this.correctTrainNumberError();
 
-    System.out.println("Please enter the delay in hh:mm: ");
-    String delay = scanner.nextLine();
+    System.out.println("Please enter delay in hh:mm: ");
+    LocalTime parsedDelay = null;
+    boolean validDelay = false;
+    while (!validDelay) {
+      String delay = inputScanner.nextLine();
+      try {
+        parsedDelay = LocalTime.parse(delay);
+        validDelay = true;
+      } catch (DateTimeParseException e) {
+        System.out.println("Invalid delay. Please try again.");
+      }
+    }
 
     TrainDeparture trainDeparture = this.trainDispatchRecord
-        .findTrainDepartureByTrainNumber(searchTrainNumber);
-    if (trainDeparture != null) {
-      trainDeparture.setDelay(LocalTime.parse(delay));
+        .findTrainDepartureByTrainNumber(searchinTrainNumber);
+    if (trainDeparture == null) {
+      System.out.println("No train departures found with train number: " + searchinTrainNumber);
     } else {
-      System.out.println("No train departures found with train number: " + searchTrainNumber);
+      trainDeparture.setDelay(parsedDelay);
 
     }
 
@@ -205,21 +205,28 @@ public class TrainDispatchAppUi {
    */
 
   private void addTrack() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("Please enter the train number to the train you want to assign a track to: ");
-    int searchTrainNumber = scanner.nextInt();
-    scanner.nextLine();
+    final Scanner inputScanner = new Scanner(System.in);
+    int searchInTrainNumber = this.correctTrainNumberError();
 
     System.out.println("Please enter the track you want to : ");
-    int track = scanner.nextInt();
-    scanner.nextLine();
+    int track = -1;
+    boolean validTrack = false;
+    while (!validTrack) {
+      if (inputScanner.hasNextInt()) {
+        track = inputScanner.nextInt();
+        validTrack = true;
+      } else {
+        System.out.println("Invalid track. Please try again.");
+        inputScanner.nextLine();
+      }
+    }
 
-    TrainDeparture trainDeparture = this.trainDispatchRecord.
-        findTrainDepartureByTrainNumber(searchTrainNumber);
+    TrainDeparture trainDeparture = this.trainDispatchRecord
+        .findTrainDepartureByTrainNumber(searchInTrainNumber);
     if (trainDeparture != null) {
       trainDeparture.setTrack(track);
     } else {
-      System.out.println("No train departures found with train number: " + searchTrainNumber);
+      System.out.println("No train departures found with train number: " + searchInTrainNumber);
     }
   }
 
@@ -236,7 +243,7 @@ public class TrainDispatchAppUi {
     String newTime = scanner.nextLine();
     try {
       LocalTime.parse(newTime);
-    } catch (IllegalArgumentException e) {
+    } catch (DateTimeParseException e) {
       System.out.println("Invalid time. Please try again.");
       return;
 
@@ -249,7 +256,7 @@ public class TrainDispatchAppUi {
   /**
    * Updates the clock to the given time taking the removedTrainDepartures method inta account.
    *
-   * @param newTime
+   * @param newTime the new time the clock is updated to.
    */
   private void updateClock(LocalTime newTime) {
     this.trainDispatchClock.setCurrentTime(newTime);
@@ -284,8 +291,10 @@ public class TrainDispatchAppUi {
   private void printTrainDepartureInfo(TrainDeparture trainDeparture) {
     System.out.println("Scheduled time of departure: " + trainDeparture.getDepartureTime());
     try {
-      System.out.println("Actual time of departure: " +
-          trainDeparture.getDepartureTime().plusHours(trainDeparture.getDelay().getHour()));
+      System.out.println("Actual time of departure: "
+          + trainDeparture.getDepartureTime().plusHours(trainDeparture.getDelay().getHour())
+          .plusMinutes(trainDeparture
+          .getDelay().getMinute()));
     } catch (Exception e) {
       System.out.println("Actual time of departure: " + trainDeparture.getDepartureTime());
     }
@@ -328,10 +337,7 @@ public class TrainDispatchAppUi {
    */
   private void searchByTrainNumber() {
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Please enter the train number you want to search for: ");
-    int searchTrainNumber = scanner.nextInt();
-
-    scanner.nextLine();
+    int searchTrainNumber = this.correctTrainNumberError();
 
     TrainDeparture trainDeparture =
         this.trainDispatchRecord.findTrainDepartureByTrainNumber(searchTrainNumber);
@@ -349,20 +355,10 @@ public class TrainDispatchAppUi {
   private void listAllTrainDeparturesSortedByDepartureTime() {
     for (TrainDeparture trainDeparture : this.trainDispatchRecord.getTrainDeparturesSortedByDepartureTime()) {
       this.printTrainDepartureInfo(trainDeparture);
+
     }
   }
 
-
-  /**
-   * Prints all train departures in the register.
-   */
-  private void printAllTrainDepartures() {
-    Iterator<TrainDeparture> it = this.trainDispatchRecord.iterator();
-    while (it.hasNext()) {
-      TrainDeparture trainDeparture = it.next();
-      printTrainDepartureInfo(trainDeparture);
-    }
-  }
 
   /**
    * Adds a train departure to the register by asking the user for the information about the
@@ -392,35 +388,25 @@ public class TrainDispatchAppUi {
     System.out.println("Please enter line of train: ");
     final String line = inputScanner.nextLine();
 
-    System.out.println("Please enter train number: ");
-    System.out.println();
-    System.out.println("Train number must be 3-digits ");
-    int trainNumber = 0;
-    boolean validTrainNumber = false;
-    while (!validTrainNumber) {
-      if (inputScanner.hasNextInt()) {
-        trainNumber = inputScanner.nextInt();
-        if (Integer.toString(trainNumber).length() == 3) {
-          validTrainNumber = true;
-          if (this.trainDispatchRecord.findTrainDepartureByTrainNumber(trainNumber) != null) {
-            System.out.println("Train number already exists. Please enter a new train number :)");
-            inputScanner.nextLine();
-          }
-        } else {
-          System.out.println("Invalid train number. Please enter a 3-digit train number :)");
-          inputScanner.nextLine();
-        }
-      } else {
-        System.out.println("Invalid train number. Please try again.");
-        inputScanner.nextLine();
-      }
-    }
-    inputScanner.nextLine();
+
+    int trainNumber = this.correctTrainNumberError();
+
     System.out.println("Please enter the destination: ");
     final String destination = inputScanner.nextLine();
 
-    System.out.println("Please enter delay in hh:mm: ");
-    final String delay = inputScanner.nextLine();
+    LocalTime parsedDelay = null;
+    boolean validDelay = false;
+    String delay = null;
+    while (!validDelay) {
+      System.out.println("Please enter delay in hh:mm: ");
+      delay = inputScanner.nextLine();
+      try {
+        parsedDelay = LocalTime.parse(delay);
+        validDelay = true;
+      } catch (Exception e) {
+        System.out.println("Invalid delay. Please try again.");
+      }
+    }
 
     System.out.println("Please enter track: ");
     int track = -1;
@@ -442,6 +428,30 @@ public class TrainDispatchAppUi {
         track);
     this.trainDispatchRecord.addTrainDeparture(trainDepartureToAdd);
   }
+
+  /**
+   * Created a method which handles invalid input for train number.
+   */
+
+  public int correctTrainNumberError() {
+    final Scanner inputScanner = new Scanner(System.in);
+    int trainNumber = 0;
+    boolean validTrainNumber = false;
+
+    while (!validTrainNumber) {
+      System.out.println("Please enter the train number: ");
+      if (inputScanner.hasNextInt()) {
+        trainNumber = inputScanner.nextInt();
+        validTrainNumber = true;
+      } else {
+        System.out.println("Invalid train number. Please try again.");
+      }
+        inputScanner.nextLine();
+
+    }
+    return trainNumber;
+
+}
 
 }
 

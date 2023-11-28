@@ -22,7 +22,7 @@ import java.util.Map;
  * </ul>
  */
 public class TrainDispatchRecord {
-  private HashMap<Integer, TrainDeparture> trainDepartures;
+  private final HashMap<Integer, TrainDeparture> trainDepartures;
 
 
   /**
@@ -145,9 +145,7 @@ public class TrainDispatchRecord {
    *
    * @return iterator for the record.
    */
-  public Iterator<TrainDeparture> iterator() {
-    return this.trainDepartures.values().iterator();
-  }
+
 }
 
 

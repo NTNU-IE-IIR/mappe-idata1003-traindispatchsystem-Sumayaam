@@ -2,6 +2,7 @@ package edu.ntnu.stud;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalTime;
 
@@ -71,16 +72,6 @@ class TrainDispatchClockTest {
         assertEquals("00:00", trainDispatchClock.getCurrentTime().toString());
     }
 
-    /**
-     * Tests that the time is not updated when setting the time to a value outside the 00:00 to 23:59 range
-     * negative test.
-     */
-
-   // @Test
-    //public void testSettingCurrentTimeToInvalidTime() {
-       // trainDispatchClock.setCurrentTime(LocalTime.parse("24:00"));
-       // assertEquals("00:00", trainDispatchClock.getCurrentTime().toString());
-   // }
 
     /**
      * Tests that the time is not updated when setting the time to null
