@@ -1,7 +1,7 @@
 package edu.ntnu.stud.ui;
 
 
-import edu.ntnu.stud.TrainDispatchClock;
+import edu.ntnu.stud.entity.TrainDispatchClock;
 import edu.ntnu.stud.entity.TrainDeparture;
 import edu.ntnu.stud.logic.TrainDispatchRecord;
 import java.time.LocalTime;
@@ -208,18 +208,7 @@ public class TrainDispatchAppUi {
     final Scanner inputScanner = new Scanner(System.in);
     int searchInTrainNumber = this.correctTrainNumberError();
 
-    System.out.println("Please enter the track you want to : ");
-    int track = -1;
-    boolean validTrack = false;
-    while (!validTrack) {
-      if (inputScanner.hasNextInt()) {
-        track = inputScanner.nextInt();
-        validTrack = true;
-      } else {
-        System.out.println("Invalid track. Please try again.");
-        inputScanner.nextLine();
-      }
-    }
+    int track = this.correctTrack();
 
     TrainDeparture trainDeparture = this.trainDispatchRecord
         .findTrainDepartureByTrainNumber(searchInTrainNumber);
@@ -300,7 +289,6 @@ public class TrainDispatchAppUi {
           .plusMinutes(trainDeparture
               .getDelay().getMinute()));
     } catch (Exception e) {
-      System.out.println("Actual time of departure: " + trainDeparture.getDepartureTime());
     }
     System.out.println("Line of train: " + trainDeparture.getLine());
     System.out.println("Train number: " + trainDeparture.getTrainNumber());
@@ -370,6 +358,7 @@ public class TrainDispatchAppUi {
   /**
    * Adds a train departure to the register by asking the user for the information about the
    * train departures.
+   * //todo: add validation of input
    */
   private void addNewTrainDeparture() {
     final Scanner inputScanner = new Scanner(System.in);
@@ -387,7 +376,7 @@ public class TrainDispatchAppUi {
         } else {
           System.out.println("Departure time is before current time. Please try again.");
         }
-      } catch (Exception e) {
+      } catch (DateTimeParseException e) {
         System.out.println("Invalid departure time. Please try again.");
       }
     } //Used Copilot to finish the code to use while
@@ -412,24 +401,16 @@ public class TrainDispatchAppUi {
       System.out.println("Please enter delay in hh:mm: ");
       delay = inputScanner.nextLine();
       try {
+        LocalTime.parse(delay);
         validDelay = true;
-      } catch (Exception e) {
+      } catch (DateTimeParseException e) {
         System.out.println("Invalid delay. Please try again.");
       }
     }
 
-    System.out.println("Please enter track: ");
-    int track = -1;
-    boolean validTrack = false;
-    while (!validTrack) {
-      if (inputScanner.hasNextInt()) {
-        track = inputScanner.nextInt();
-        validTrack = true;
-      } else {
-        System.out.println("Invalid track. Please try again.");
-        inputScanner.nextLine();
-      } //TODO: make into method
-    }
+    int track = this.correctTrack();
+
+
     TrainDeparture trainDepartureToAdd = new TrainDeparture(LocalTime.parse(departureTime),
         line,
         trainNumber,
@@ -440,10 +421,11 @@ public class TrainDispatchAppUi {
   }
 
   /**
-   * Created a method which handles invalid input for train number.
+   * A method which handles invalid input for train number.
+   * <p> If the user enters an invalid train number, a message will be printed to the console.</p>
    */
 
-  public int correctTrainNumberError() {
+  private int correctTrainNumberError() {
     final Scanner inputScanner = new Scanner(System.in);
     int trainNumber = 0;
     boolean validTrainNumber = false;
@@ -451,18 +433,59 @@ public class TrainDispatchAppUi {
     while (!validTrainNumber) {
       System.out.println("Please enter the train number: ");
       if (inputScanner.hasNextInt()) {
-        trainNumber = inputScanner.nextInt();
+
+        int giventrainNumber = inputScanner.nextInt();
         validTrainNumber = true;
+
+        if (giventrainNumber > 0) {
+          trainNumber = giventrainNumber;
+        } else {
+          System.out.println("Invalid train number. Please try again.");
+        }
       } else {
         System.out.println("Invalid train number. Please try again.");
+        inputScanner.nextLine();
       }
-      inputScanner.nextLine();
 
     }
     return trainNumber;
-
   }
 
+  /**
+   * A method which handles invalid input for track.
+   * <p> If the user enters an invalid track, a message will be printed to the console.</p>
+   */
+
+  private int correctTrack() {
+    final Scanner trackScanner = new Scanner(System.in);
+    int track = 0;
+    boolean validTrack = false;
+
+    while (!validTrack) {
+      System.out.println("Please enter the track: ");
+      if (trackScanner.hasNextInt()) {
+        int givenTrack = trackScanner.nextInt();
+        if (givenTrack >= 0) {
+          track = givenTrack;
+          validTrack = true;
+        } else {
+          System.out.println("Invalid track. Please try again.");
+
+        }
+      } else {
+        System.out.println("Invalid track. Please try again.");
+        trackScanner.nextLine();
+      }
+      // used copilot to finish the code
+
+    }
+    return track;
+  }
+
+
 }
+
+
+
 
 

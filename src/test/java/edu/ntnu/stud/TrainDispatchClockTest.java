@@ -1,5 +1,6 @@
 package edu.ntnu.stud;
 
+import edu.ntnu.stud.entity.TrainDispatchClock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
