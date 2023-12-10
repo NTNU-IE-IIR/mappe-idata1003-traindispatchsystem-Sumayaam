@@ -68,8 +68,7 @@ class TrainDispatchClockTest {
         LocalTime newTime = LocalTime.parse("13:30");
         trainDispatchClock.setCurrentTime(newTime);
         LocalTime earlierTime = LocalTime.parse("12:30");
-        trainDispatchClock.setCurrentTime(earlierTime);
-        assertEquals("00:00", trainDispatchClock.getCurrentTime().toString());
+        assertThrows(IllegalArgumentException.class, () -> trainDispatchClock.setCurrentTime(earlierTime));
     }
 
 
@@ -79,9 +78,11 @@ class TrainDispatchClockTest {
 
     @Test
     public void testSettingCurrentTimeToNull() {
-        trainDispatchClock.setCurrentTime(null);
-        assertEquals("00:00", trainDispatchClock.getCurrentTime().toString());
-    }
+          LocalTime newTime = LocalTime.parse("13:30");
+            trainDispatchClock.setCurrentTime(newTime);
+            assertThrows(IllegalArgumentException.class, () -> trainDispatchClock.setCurrentTime(null));
+        }
+
 
 
 }

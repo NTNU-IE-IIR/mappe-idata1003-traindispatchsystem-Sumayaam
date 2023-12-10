@@ -1,77 +1,80 @@
 package edu.ntnu.stud.entity;
-import edu.ntnu.stud.entity.TrainDeparture;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TrainDepartureTest {
-    private TrainDeparture departure;
-    /**
-     * Sets up the text fixture.
-     *
-     * Always called before each test case method.
-     */
+  private TrainDeparture departure;
 
-    @BeforeEach
+  /**
+   * Sets up the text fixture.
+   * <p>
+   * Always called before each test case method.
+   */
 
-    public void setUp(){
-        departure = new TrainDeparture(LocalTime.of(12, 00),
-                "F1",
-                789,
-                "Oslo",
-                LocalTime.of(0, 10),4);
+  @BeforeEach
 
-    }
+  public void setUp() {
+    departure = new TrainDeparture(LocalTime.of(12, 0),
+        "F1",
+        789,
+        "Oslo",
+        LocalTime.of(0, 10), 4);
 
-    /**
-     * Tears down the text fixture
-     *
-     * Always called after every test case
-     */
+  }
 
-    @AfterEach
-    public void teardown() {
-        departure = null;
+  /**
+   * Tears down the text fixture
+   * <p>
+   * Always called after every test case
+   */
 
-    }
+  @AfterEach
+  public void teardown() {
+    departure = null;
 
-    /**
-     * Positive test which test valid train departure inputs.
-     *
-     * Test that the train departure is created correctly.
-     */
+  }
 
-    @Test
-    public void testValidTrainDepartureInput() {
-        assertEquals(LocalTime.of(12, 0), departure.getDepartureTime());
-        assertEquals("F1",departure.getLine());
-        assertEquals(789, departure.getTrainNumber());
-        assertEquals("Oslo", departure.getDestination());
-        assertEquals(LocalTime.of(0, 10), departure.getDelay());
-        assertEquals(4, departure.getTrack());
-    }
-    /**
-     * Negative test which test invalid train departure inputs.
-     *
-     * Tests that train departure handles invalid inputs correctly
-     */
-    @Test
-    public void testInvalidTrainDepartureInput() {
-        departure = new TrainDeparture(LocalTime.of(12, 00),
-                "",
-                -2,
-                "",
-                LocalTime.of(0,10), 0);
+  /**
+   * Positive test which test valid train departure inputs.
+   * <p>
+   * Test that the train departure is created correctly.
+   */
 
-        assertEquals(LocalTime.of(12, 0), departure.getDepartureTime());
-        assertEquals("INVALID LINE",departure.getLine());
-        assertEquals(0, departure.getTrainNumber());
-        assertEquals("INVALID DESTINATION", departure.getDestination());
-        assertEquals(-1, departure.getTrack());
+  @Test
+  public void testValidTrainDepartureInput() {
+    assertEquals(LocalTime.of(12, 0), departure.getDepartureTime());
+    assertEquals("F1", departure.getLine());
+    assertEquals(789, departure.getTrainNumber());
+    assertEquals("Oslo", departure.getDestination());
+    assertEquals(LocalTime.of(0, 10), departure.getDelay());
+    assertEquals(4, departure.getTrack());
+  }
 
-    }
+  /**
+   * Negative test which test invalid train departure inputs.
+   * <p>
+   * Tests that train departure handles invalid inputs correctly
+   */
+  @Test
+  public void testInvalidTrainDepartureInput() {
+    departure = new TrainDeparture(LocalTime.of(12, 0),
+        "",
+        -2,
+        "",
+        LocalTime.of(0, 10), 0);
+
+    assertEquals(LocalTime.of(12, 0), departure.getDepartureTime());
+    assertEquals("INVALID LINE", departure.getLine());
+    assertEquals(0, departure.getTrainNumber());
+    assertEquals("INVALID DESTINATION", departure.getDestination());
+    assertEquals(-1, departure.getTrack());
+
+  }
 
 }

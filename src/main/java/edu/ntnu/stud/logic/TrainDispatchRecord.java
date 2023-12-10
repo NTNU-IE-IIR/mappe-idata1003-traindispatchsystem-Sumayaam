@@ -34,7 +34,7 @@ public class TrainDispatchRecord {
 
   /**
    * Adds a train departure to the record.
-   * <p><
+   * <p>
    * This method adds a {@code TrainDeparture} to the record.
    * if a train departure with the same train number already exists in the record,
    * the method will return {@code false} and will not add the train number.
@@ -43,7 +43,7 @@ public class TrainDispatchRecord {
    *
    * @param trainDeparture the train departure to be added.
    * @return {@code true} if the train departure was added,
-   * and {@code false} if the train departure was not added.
+   *     and {@code false} if the train departure was not added.
    */
   public boolean addTrainDeparture(TrainDeparture trainDeparture) {
     if (trainDeparture == null || this.trainDepartures.containsKey(
@@ -89,7 +89,7 @@ public class TrainDispatchRecord {
 
     while ((foundTrainDeparture == null) && it.hasNext()) {
       TrainDeparture trainDeparture = it.next();
-      if (trainDeparture.getDestination().equals(destination)) {
+      if (trainDeparture.getDestination().equalsIgnoreCase(destination)) {
         foundTrainDeparture = trainDeparture;
       }
     }
@@ -140,11 +140,6 @@ public class TrainDispatchRecord {
     return sortedTrainDepartureList;
   }
 
-  /**
-   * Return an iterator for the record.
-   *
-   * @return iterator for the record.
-   */
 
 }
 

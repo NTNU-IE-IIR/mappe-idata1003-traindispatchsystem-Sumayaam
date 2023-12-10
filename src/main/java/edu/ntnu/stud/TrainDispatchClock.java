@@ -12,7 +12,7 @@ public class TrainDispatchClock {
   private LocalTime currentTime;
 
   /**
-   * Creates an instance of the TrainDispatchClock.
+   * Creates an instance of the TrainDispatchClock,with the current time set to 00:00.
    */
 
   public TrainDispatchClock() {
