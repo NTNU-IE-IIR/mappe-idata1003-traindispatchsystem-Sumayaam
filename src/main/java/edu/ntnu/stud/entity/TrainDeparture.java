@@ -230,6 +230,19 @@ public class TrainDeparture {
     }
   }
 
+  /**
+   * Compares a train departure object with another based on departure time.
+   *
+   * <p>This method implements the Comparable interface,
+   * and allows sorting of train departure-objects.
+   * The sorting is based on departure time, and the method returns a negative integer,
+   * which indicates the order of the objects.
+   *
+   * @param otherTrainDeparture other train departure object to compare with.
+   * @return a negative integer, zero, or a positive integer which indicates
+   *         that the train departure is before, at the same time,
+   *         or after the other train departure.
+   */
   public int compareTo(TrainDeparture otherTrainDeparture) {
     return this.getDepartureTime().compareTo(otherTrainDeparture.getDepartureTime());
   }

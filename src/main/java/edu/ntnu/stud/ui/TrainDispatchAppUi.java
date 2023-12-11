@@ -10,14 +10,15 @@ import java.util.Scanner;
 
 /**
  * The TrainDispatchAppUi class represents the user interface of the application.
- * <p> This class takes care of all interaction with the user,
+ *
+ * <p>This class takes care of all interaction with the user,
  * including showing of menu choices, collection of user inputs,
  * and printing of information to the user.
  * The information which is printed is the choices they make from the menu,
  * which includes listing of train departures, adding new train departures,
  * assigning track and/or delay, updating the clock,
  * and searching for train departures by train number or destination.<p/>
- * <p>
+ *
  * <p>It also makes sures that there is quality error handling for user inputs</p>
  * <p></p> This class communicates with TrainDispatchRecord
  *to tackle train departures, and TrainStationClock to handle time.</p>
@@ -56,7 +57,7 @@ public class TrainDispatchAppUi {
   /**
    * initializes the application
    *
-   * <p> Creates a new instance of TrainDispatchRecord.
+   * <p>Creates a new instance of TrainDispatchRecord.
    */
   public void init() {
     this.trainDispatchRecord = new TrainDispatchRecord();
@@ -65,7 +66,8 @@ public class TrainDispatchAppUi {
 
   /**
    * Starts the application. This is the main entry point where the program execution begins.
-   * <p> The method will first show the welcome screen, and then show the menu
+   *
+   * <p>The method will first show the welcome screen, and then show the menu.
    */
 
   public void start() {
@@ -224,7 +226,7 @@ public class TrainDispatchAppUi {
     } else {
       trainDeparture.setDelay(parsedDelay); //adds the delay if the train number is not in use,
       // if not it will exit and print message.
-      // Better than looping until correct, because user can remember wrong and wan to exit.
+      // Better than looping until correct, because user can remember wrong and want to exit.
 
     }
 
@@ -284,7 +286,7 @@ public class TrainDispatchAppUi {
       } catch (DateTimeParseException e) {
         System.out.println("Invalid time. Please try again.");
       }
-    } // Loop until valid time is written, if not DatetimeParseExeption is used
+    } // Loop until valid time is written, if not DatetimeParseException is used
     this.updateClock(parsedTime); // calls on the updateClock method, with the parsed time
     System.out.println("The clock has been updated to: " + parsedTime); // updates clock
 
@@ -331,7 +333,8 @@ public class TrainDispatchAppUi {
   /**
    * Prints the information about a train departure.
    * <p> This method takes a train departure object as a parameter and
-   * writes detailed information about he given train departure, which includes scheduled departure time,
+   * writes detailed information about he given train departure,
+   * which includes scheduled departure time,
    * and actual departure time with delay, train line, train number, destination and track </p>
    *
    * @param trainDeparture a train departure to print information about.
@@ -438,11 +441,11 @@ public class TrainDispatchAppUi {
    * <p> The method asks the user first for departure time,
    * line, train number, destination, delay and track.
    * Then it does a validation check for each of the fields</p>
-   * <p> After the information needed is collected and validated,
+   *
+   * <p>After the information needed is collected and validated,
    * a new TrainDeparture-object is created, which is then added to the record.
-   * </p>
-   * <p> To ensure a valid user input, the methods 'correctTrainNumberError'.
-   * <p>
+   *
+   * <p>To ensure a valid user input, the methods 'correctTrainNumberError'.
    *   <p>Copilot was used to help me finish the code</p>
    */
   private void addNewTrainDeparture() {
@@ -546,15 +549,15 @@ public class TrainDispatchAppUi {
       System.out.println("Please enter the train number: ");
       if (inputScanner.hasNextInt()) {
 
-        int giventrainNumber = inputScanner.nextInt();
+        int givenTrainNumber = inputScanner.nextInt();
         validTrainNumber = true;
 
-        if (giventrainNumber > 0) {
-          trainNumber = giventrainNumber;
+        if (givenTrainNumber > 0) {
+          trainNumber = givenTrainNumber;
         } else {
           System.out.println("Invalid train number. Please try again.");
         }
-      } else { // writes an error message if its not an int
+      } else { // writes an error message if it's not an int
         System.out.println("Invalid train number. Please try again.");
         inputScanner.nextLine();
       }
@@ -567,7 +570,7 @@ public class TrainDispatchAppUi {
    * A method which handles invalid input for track.
    * <p> If the user enters an invalid track, a message will be printed to the console.</p>
    * <p> This methods is a loop which makes sure that the user enters a valid track (int)
-   * If not an error message will be printes, and user gets asked to write valid track </p>
+   * If not an error message will be prints, and user gets asked to write valid track </p>
    * <p>Copilot was used to help me finish the code</p>
    *
    * @return valid track.
@@ -603,7 +606,8 @@ public class TrainDispatchAppUi {
    * Corrects input error for destination.
    * <p></p>
    * <p> If the user enters an invalid destination, a message will be printed to the console.</p>
-   * <p> This method is a loop which makes sure that the user enters
+   *
+   * <p>This method is a loop which makes sure that the user enter.
    * a valid destination(String), which cannot be null or Blank.
    * <p>Copilot was used to help me finish the code</p>
    *

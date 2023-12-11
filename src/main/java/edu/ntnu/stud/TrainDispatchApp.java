@@ -12,7 +12,7 @@ public class TrainDispatchApp {
    * The main method is the entry point of the application.
    *
    * @author Sumaya Mohammud
-   * version 1.0.0
+   * version 1.0.0.
    */
   public static void main(String[] args) {
     try {
