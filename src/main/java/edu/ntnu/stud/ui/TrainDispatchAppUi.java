@@ -205,7 +205,6 @@ public class TrainDispatchAppUi {
    */
 
   private void addTrack() {
-    final Scanner inputScanner = new Scanner(System.in);
     int searchInTrainNumber = this.correctTrainNumberError();
 
     int track = this.correctTrack();
@@ -275,6 +274,10 @@ public class TrainDispatchAppUi {
     }
   }
 
+  /**
+   *
+   */
+
 
   /**
    * Prints the information about a train departure.
@@ -310,9 +313,7 @@ public class TrainDispatchAppUi {
    */
 
   private void searchByDestination() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("Please enter a destination you want to search for: ");
-    String searchDestination = scanner.nextLine().trim().toUpperCase();
+    String searchDestination = this.correctDestinationError();
 
     TrainDeparture trainDeparture =
         this.trainDispatchRecord.findTrainDepartureByDestination(searchDestination);
@@ -382,18 +383,29 @@ public class TrainDispatchAppUi {
     } //Used Copilot to finish the code to use while
 
     System.out.println("Please enter line of train: ");
-    final String line = inputScanner.nextLine();
+    boolean validLine = false;
+    String line = null;
+    while (!validLine) {
+      line = inputScanner.nextLine();
+      if (line.isBlank()) {
+        System.out.println("Invalid line. Please try again.");
+      } else {
+        validLine = true;
+      }
+    } // used copilot to finish the code
 
 
     int trainNumber = this.correctTrainNumberError();
-    while (this.trainDispatchRecord.findTrainDepartureByTrainNumber(trainNumber) != null) {
+    while (this.trainDispatchRecord.findTrainDepartureByTrainNumber(trainNumber) != null ||
+        this.trainDispatchRecord.getUsedTrainNumbers().contains(trainNumber)) {
       System.out.println("Train number already in use. Please enter new.");
       trainNumber = this.correctTrainNumberError();
 
-    } //Used copilot to finish up my code
+    } //Used copilot to finish this code
 
-    System.out.println("Please enter the destination: ");
-    final String destination = inputScanner.nextLine();
+    String destination = this.correctDestinationError();
+    //used copilot to finish code
+
 
     boolean validDelay = false;
     String delay = null;
@@ -482,8 +494,29 @@ public class TrainDispatchAppUi {
     return track;
   }
 
+  /**
+   * Corrects input error for destination.
+   * <p> If the user enters an invalid destination, a message will be printed to the console.</p>
+   */
 
+  private String correctDestinationError() {
+    final Scanner inputScanner = new Scanner(System.in);
+    String destination = null;
+    boolean validDestination = false;
+
+    while (!validDestination) {
+      System.out.println("Please enter the destination: ");
+      destination = inputScanner.nextLine().toUpperCase();
+      if (destination.isBlank()) {
+        System.out.println("Invalid destination. Please try again.");
+      } else {
+        validDestination = true;
+      }
+    }
+    return destination;
+  }
 }
+
 
 
 

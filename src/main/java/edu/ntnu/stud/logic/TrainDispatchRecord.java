@@ -13,16 +13,17 @@ import java.util.Map;
  *
  * <p>The following functionality is implemented.
  *
- * <ul> <li> Add a train departure</li>
- *
- *
- *
- *
- *
- * </ul>
+ * <ul>
+ *   <li> Add a train departure where each has a unique train number,and can only be added once</li>
+ *   <li> Find a train departure by an existing train number</li>
+ *   <li> Find a train departure by an existing  destination</li>
+ *   <li> Remove train departures from <b>before</b> a given time</li>
+ *   <li> Get a list of train departures sorted by departure time</li>
+ *   </ul>
  */
 public class TrainDispatchRecord {
   private final HashMap<Integer, TrainDeparture> trainDepartures;
+  private final ArrayList<Integer> usedTrainNumbers;
 
 
   /**
@@ -30,6 +31,7 @@ public class TrainDispatchRecord {
    */
   public TrainDispatchRecord() {
     this.trainDepartures = new HashMap<>();
+    this.usedTrainNumbers = new ArrayList<>();
   }
 
   /**
@@ -46,12 +48,30 @@ public class TrainDispatchRecord {
    *     and {@code false} if the train departure was not added.
    */
   public boolean addTrainDeparture(TrainDeparture trainDeparture) {
-    if (trainDeparture == null || this.trainDepartures.containsKey(
-        trainDeparture.getTrainNumber())) {
+    if (trainDeparture == null) {
+      return false;
+
+    }
+    int trainNumber = trainDeparture.getTrainNumber();
+
+    if (this.trainDepartures.containsKey(trainNumber)
+        || this.usedTrainNumbers.contains(trainNumber)) {
       return false;
     }
-    this.trainDepartures.put(trainDeparture.getTrainNumber(), trainDeparture);
+    this.trainDepartures.put(trainNumber, trainDeparture);
+    this.usedTrainNumbers.add(trainNumber);
+
     return true;
+
+  }
+
+  /**
+   * Returns the ArrayList of used train numbers.
+   *
+   * @return the ArrayList of used train numbers.
+   */
+  public ArrayList<Integer> getUsedTrainNumbers() {
+    return this.usedTrainNumbers;
   }
 
   public int getNumberOfTrainDepartures() {
@@ -126,7 +146,8 @@ public class TrainDispatchRecord {
 
 
   /**
-   * Returns the number of train departures as a sorted list depending on departure Time.
+   * Returns the number of train departures as a sorted list depending on departure Time,
+   * by using comparator.
    *
    * @return a sorted list of train departures by departure time.
    */
