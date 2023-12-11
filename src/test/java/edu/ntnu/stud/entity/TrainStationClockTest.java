@@ -1,16 +1,15 @@
-package edu.ntnu.stud;
+package edu.ntnu.stud.entity;
 
-import edu.ntnu.stud.entity.TrainDispatchClock;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
- * Test class for TrainDispatchClock
+ * Test class for TrainStationClock
  * The following must be tested:
  * <ul>
  *     <li>Verifying that the clock is created with correct initial time</li>
@@ -24,9 +23,9 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  */
 
-class TrainDispatchClockTest {
+class TrainStationClockTest {
 
-    private TrainDispatchClock trainDispatchClock;
+    private TrainStationClock trainStationClock;
 
     /**
      * Sets up the text fixture,
@@ -35,7 +34,7 @@ class TrainDispatchClockTest {
 
     @BeforeEach
     public void setUp() {
-        trainDispatchClock = new TrainDispatchClock();
+        trainStationClock = new TrainStationClock();
     }
 
     /**
@@ -45,7 +44,7 @@ class TrainDispatchClockTest {
 
     @Test
     public void testCreationOfClockWithCorrectInitialTime() {
-        assertEquals("00:00", trainDispatchClock.getCurrentTime().toString());
+        assertEquals("00:00", trainStationClock.getCurrentTime().toString());
     }
 
     /**
@@ -55,8 +54,8 @@ class TrainDispatchClockTest {
     @Test
     public void testSettingTimeToValidLaterTimeThanCurrentTime() {
         LocalTime newTime = LocalTime.parse("13:30");
-        trainDispatchClock.setCurrentTime(newTime);
-        assertEquals("13:30", trainDispatchClock.getCurrentTime().toString());
+        trainStationClock.setCurrentTime(newTime);
+        assertEquals("13:30", trainStationClock.getCurrentTime().toString());
     }
 
     /**
@@ -67,9 +66,9 @@ class TrainDispatchClockTest {
     @Test
     public void testSettingTimeToEarlierTime() {
         LocalTime newTime = LocalTime.parse("13:30");
-        trainDispatchClock.setCurrentTime(newTime);
+        trainStationClock.setCurrentTime(newTime);
         LocalTime earlierTime = LocalTime.parse("12:30");
-        assertThrows(IllegalArgumentException.class, () -> trainDispatchClock.setCurrentTime(earlierTime));
+        assertThrows(IllegalArgumentException.class, () -> trainStationClock.setCurrentTime(earlierTime));
     }
 
 
@@ -80,8 +79,8 @@ class TrainDispatchClockTest {
     @Test
     public void testSettingCurrentTimeToNull() {
           LocalTime newTime = LocalTime.parse("13:30");
-            trainDispatchClock.setCurrentTime(newTime);
-            assertThrows(IllegalArgumentException.class, () -> trainDispatchClock.setCurrentTime(null));
+            trainStationClock.setCurrentTime(newTime);
+            assertThrows(IllegalArgumentException.class, () -> trainStationClock.setCurrentTime(null));
         }
 
 

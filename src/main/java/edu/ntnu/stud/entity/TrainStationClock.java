@@ -8,14 +8,14 @@ import java.time.LocalTime;
  * Time cannot be set backwards.
  */
 
-public class TrainDispatchClock {
+public class TrainStationClock {
   private LocalTime currentTime;
 
   /**
-   * Creates an instance of the TrainDispatchClock,with the current time set to 00:00.
+   * Creates an instance of the TrainStationClock,with the current time set to 00:00.
    */
 
-  public TrainDispatchClock() {
+  public TrainStationClock() {
     currentTime = LocalTime.of(0, 0);
   }
 

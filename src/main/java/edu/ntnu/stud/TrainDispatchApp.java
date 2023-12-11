@@ -8,9 +8,11 @@ import edu.ntnu.stud.ui.TrainDispatchAppUi;
 
 public class TrainDispatchApp {
   /**
-   * //TODO: Add description.
+   * Represents the main application for the Train Dispatch System.
+   * The main method is the entry point of the application.
    *
-   * @param args
+   * @author Sumaya Mohammud
+   * version 1.0.0
    */
   public static void main(String[] args) {
     try {
@@ -18,7 +20,10 @@ public class TrainDispatchApp {
       trainDispatchAppUi.init();
       trainDispatchAppUi.start();
     } catch (IllegalArgumentException e) {
-      throw new RuntimeException(e); // todo fix
+      System.out.println("Something went wrong during initialization of the app.");
+      //Used Copilot to generate this code.
+
+
     }
 
 
