@@ -46,7 +46,7 @@ public class TrainDispatchRecord {
    *
    * @param trainDeparture the train departure to be added.
    * @return {@code true} if the train departure was added,
-   *         {@code false} if the train departure was not added.
+   * {@code false} if the train departure was not added.
    */
   public boolean addTrainDeparture(TrainDeparture trainDeparture) {
     if (trainDeparture == null) {
@@ -57,10 +57,10 @@ public class TrainDispatchRecord {
 
     if (this.trainDepartures.containsKey(trainNumber)
         || this.usedTrainNumbers.contains(trainNumber)) {
-      return false; // train number already exits.
+      return false; // Train number already exits.
     }
     this.trainDepartures.put(trainNumber, trainDeparture);
-    this.usedTrainNumbers.add(trainNumber); //adds train number to the used train numbers list.
+    this.usedTrainNumbers.add(trainNumber); // Adds train number to the used train numbers list.
 
     return true;
 
@@ -113,19 +113,19 @@ public class TrainDispatchRecord {
    * @return the train departure found with the given destination.
    */
   public TrainDeparture findTrainDepartureByDestination(String destination) {
-    TrainDeparture foundTrainDeparture = null; //initializing the found train departure to null.
+    TrainDeparture foundTrainDeparture = null; //Initializing the found train departure to null.
 
     Iterator<TrainDeparture> it = this.trainDepartures.values().iterator();
-    //iterator for iterating over the HashMap values.
+    //Iterator for iterating over the HashMap values.
 
     while ((foundTrainDeparture == null) && it.hasNext()) {
       TrainDeparture trainDeparture = it.next();
       if (trainDeparture.getDestination().equalsIgnoreCase(destination)) {
         foundTrainDeparture = trainDeparture;
-      } // searching for the train departure with the final destination.
+      } // Searching for the train departure with the final destination.
     }
     return foundTrainDeparture;
-    // returns the train departure with the final destination, or otherwise null.
+    // Returns the train departure with the final destination, or otherwise null.
   }
 
   /**
@@ -150,26 +150,26 @@ public class TrainDispatchRecord {
   public int removeTrainDeparturesFromBefore(LocalTime removeTime) {
     Iterator<Map.Entry<Integer, TrainDeparture>> it = this.trainDepartures.entrySet().iterator();
     int removedCount = 0;
-    //iterating over the hashmap entries
+    // Iterating over the hashmap entries.
 
     while (it.hasNext()) {
       HashMap.Entry<Integer, TrainDeparture> entry = it.next();
       TrainDeparture trainDeparture = entry.getValue();
-      // gets the train departure value from the entry
+      // Gets the train departure value from the entry.
       LocalTime delay = trainDeparture.getDelay();
       LocalTime newDepartureTime = trainDeparture.getDepartureTime().plusHours(delay.getHour())
           .plusMinutes(delay.getMinute());
-      //calculates the final departure time by adding the delay to the scheduled departure time.
+      // Calculates the final departure time by adding the delay to the scheduled departure time.
 
       if (newDepartureTime.isBefore(removeTime)) {
         it.remove();
         removedCount++;
         //Removes the train departure from the record if they are before the final departure time,
-        // and adds to the removed count
+        // And adds to the removed count
       }
     }
     return removedCount;
-    // returns how many train departures where removed.
+    // Returns how many train departures where removed.
   }
 
 
@@ -182,10 +182,10 @@ public class TrainDispatchRecord {
 
   public ArrayList<TrainDeparture> getTrainDeparturesSortedByDepartureTime() {
     ArrayList<TrainDeparture> sortedTrainDepartureList = new ArrayList<>(
-        this.trainDepartures.values()); //initializing the train departure as a sorted list.
+        this.trainDepartures.values()); // Initializing the train departure as a sorted list.
     // Compares the departure times of the train departures using a lambda expression
     // and sorts the list.
-    // the 'sort' method takes a Comparator, which is here implemented using a lambda expression.
+    // The 'sort' method takes a Comparator, which is here implemented using a lambda expression.
     // This lambda expression compares the departure time of two train departures
     // ('trainDeparture1' and 'trainDeparture2').
     // The result of 'compareTo' determines the order in the sorted list.
