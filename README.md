@@ -2,8 +2,8 @@
 # Portfolio project IDATA1003 - 2023
 This file uses Mark Down syntax. For more information see [here](https://www.markdownguide.org/basic-syntax/).
 
-STUDENT NAME = "Your name"  
-STUDENT ID = "Your ID"
+STUDENT NAME = Sumaya Abdullahi Mohammud  
+STUDENT ID = 599269
 
 ## Project description
 
