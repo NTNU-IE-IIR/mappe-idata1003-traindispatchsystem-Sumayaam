@@ -46,7 +46,7 @@ public class TrainDispatchRecord {
    *
    * @param trainDeparture the train departure to be added.
    * @return {@code true} if the train departure was added,
-   * {@code false} if the train departure was not added.
+   *         {@code false} if the train departure was not added.
    */
   public boolean addTrainDeparture(TrainDeparture trainDeparture) {
     if (trainDeparture == null) {
@@ -189,6 +189,7 @@ public class TrainDispatchRecord {
     // This lambda expression compares the departure time of two train departures
     // ('trainDeparture1' and 'trainDeparture2').
     // The result of 'compareTo' determines the order in the sorted list.
+
     sortedTrainDepartureList.sort((trainDeparture1, trainDeparture2) ->
         trainDeparture1.getDepartureTime()
             .compareTo(

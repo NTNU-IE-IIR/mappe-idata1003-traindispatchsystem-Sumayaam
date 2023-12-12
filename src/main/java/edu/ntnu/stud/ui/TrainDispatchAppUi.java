@@ -430,6 +430,7 @@ public class TrainDispatchAppUi {
     for (TrainDeparture trainDeparture : this.trainDispatchRecord
         .getTrainDeparturesSortedByDepartureTime()) {
       this.printTrainDepartureInfo(trainDeparture);
+      System.out.println();
       // prints info
 
 
@@ -559,7 +560,7 @@ public class TrainDispatchAppUi {
           System.out.println("Invalid train number. Please try again.");
         }
       } else { // Writes an error message if it's not an int.
-        System.out.println("Invalid train number. Please try again.");
+        System.out.println("Not a number. Please try again.");
         inputScanner.nextLine();
       }
 
@@ -590,11 +591,11 @@ public class TrainDispatchAppUi {
           track = givenTrack;
           validTrack = true;
         } else {
-          System.out.println("Invalid track. Please try again.");
+          System.out.println("Invalid track number. Please try again.");
 
         }
       } else {
-        System.out.println("Invalid track. Please try again.");
+        System.out.println("Not a number . Please try again.");
         trackScanner.nextLine();
       }
       // Used copilot to finish the code.

@@ -3,7 +3,7 @@ package edu.ntnu.stud;
 import edu.ntnu.stud.ui.TrainDispatchAppUi;
 
 /**
- * //TODO: Add description.
+ * Represents the main application for the Train Dispatch System.
  */
 
 public class TrainDispatchApp {
