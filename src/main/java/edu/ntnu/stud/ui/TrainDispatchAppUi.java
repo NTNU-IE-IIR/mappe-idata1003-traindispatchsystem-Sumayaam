@@ -106,10 +106,13 @@ public class TrainDispatchAppUi {
 
   /**
    * Prints the welcome screen to the user.
+   * Copilot continued on my code for printing current time.
    */
   private void printWelcomeScreen() {
+    LocalTime currentTime = this.trainDispatchClock.getCurrentTime();
     System.out.println("\n\n*****  Train Dispatch Record" + version + " *****");
     System.out.println("           Welcome to this application!\n");
+    System.out.println("          The current time is: " + currentTime);
     System.out.println();
   }
 
