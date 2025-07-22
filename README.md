@@ -3,7 +3,7 @@
 This file uses Mark Down syntax. For more information see [here](https://www.markdownguide.org/basic-syntax/).
 
 STUDENT NAME = Sumaya Abdullahi Mohammud  
-STUDENT ID = 599269
+STUDENT ID = 
 
 ## Project description
 
