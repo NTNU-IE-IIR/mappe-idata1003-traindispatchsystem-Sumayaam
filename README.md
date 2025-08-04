@@ -1,6 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/HVrmLnmo)
 # Portfolio project IDATA1003 - 2023
-This file uses Mark Down syntax. For more information see [here](https://www.markdownguide.org/basic-syntax/).
 
 STUDENT NAME = Sumaya Abdullahi Mohammud  
 STUDENT ID = 
@@ -16,7 +15,6 @@ Take note that the code contains a lot more comments and Java docs than what is 
 The TrainDeparture class contains information that is needed to create a train Departure. The TrainDispatchRecord class tackles the logic of the train departures. The TrainStationClock class is the clock of the train station, and the TrainDispatchUi is the user interface of the application. The TrainDispatchApp starts the application.
 The classes in the entity and logic package each have a test. These tests are located in the test folder, and are named TrainDepartureTest and TrainDispatchRecordTest, and TrainStationClockTest. The Ui package does not have a test, as it is tested through the user interface when running the program.
 All the classes and packages are documented with Java docs, and the code is commented to make it easier to understand. They are also under teh source file which is under the directory structure of src/main/java, and the test files are under src/test/java.
-# (TODO: Describe the structure of your project here. How have you used packages in your structure. Where are all sourcefiles stored. Where are all JUnit-test classes stored. etc.)
 
 ## Link to repository
 https://github.com/NTNU-IE-IIR/mappe-idata1003-traindispatchsystem-Sumayaam.git
